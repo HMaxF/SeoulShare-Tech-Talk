@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation to write HTML for beginner</title>
+
+    <style>
+        
+        body {
+            color: white;
+            background-color: #000;
+
+            font-size: 16px;  
+            line-height: 1.4;
+
+            background-image:
+                url("corner_tl-gray.png"),
+                url("corner_tr-gray.png"),
+                url("corner_bl-gray.png"),
+                url("corner_br-gray.png");
+
+            background-position:
+                top left,
+                top right,
+                bottom left,
+                bottom right;
+
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100px, 100px, 100px, 100px;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        a {
+            color: yellow;
+            text-decoration: none;
+        }
+
+        .red_text {
+            color: red;
+        }
+
+        .green_text {
+            color: green;
+        }
+
+        table {
+            border-collapse: collapse;
+            max-width: 100vw;
+            margin: 0 auto; /* horizontally center */
+        }
+
+        table th, table td {
+            padding: 0.5rem;
+            border: 1px solid #666;
+        }
+
+        table th {
+            color: black;
+            background-color: brown;
+        }
+
+        table td {
+            color: white;
+            /* background-color: black; */ /* do not set color == transparent */
+
+            /* word-break: break-all;
+            word-wrap: normal; */
+        }
+
+        pre {
+            /* font-size: 1.0rem; */
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            /*word-break: break-all;*/
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        section:not(:last-child) {
+            margin-bottom: 100vh;
+        }
+        section:last-child {
+            margin-bottom: 50vh; /* put content in center vertically */
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <section>
+        <h1>SeoulShare Tech Talk</h1>
+
+        <h2>Write HTML for beginner (non-tech)</h2>
+        <p style="text-align: center;">Presentation: short 15 minutes</p>
+        <p style="text-align: center;">Expected outcome: each attendee to write simple HTML code.</p>
+    </section>
+
+    <section>
+
+        <h2>History of HTML</h2>
+
+        <p>HTML stands for <b>HyperText Markup Language</b>. It is the language used
+            to create web pages on the internet.</p>
+
+        <p>HTML was created in <b>1991</b> by <b>Tim Berners-Lee</b>, a scientist
+            working at CERN. His goal was to help researchers easily share
+            documents and link information between computers.</p>
+
+        <p>The idea was simple: documents could contain <b>links</b> that connect to
+            other documents. This concept became the foundation of the
+            <b>World Wide Web</b>.</p>
+    </section>
+
+    <section>
+
+        <h2>HTML versions</h2>
+        <table>
+            <tr>
+                <th>Version</th>
+                <th>Released date</th>
+            </tr>
+
+            <tr>
+                <td>HTML 1.0</td>
+                <td>1993</td>
+            </tr>
+
+            <tr>
+                <td>HTML 2.0</td>
+                <td>1995</td>
+            </tr>
+
+            <tr>
+                <td>HTML 3.2</td>
+                <td>1997</td>
+            </tr>
+
+            <tr>
+                <td>HTML 4.01</td>
+                <td>1999</td>
+            </tr>
+
+            <tr>
+                <td>HTML5<br>* not a version number but a term/brand</td>
+                <td>2014</td>
+            </tr>
+
+            <tr>
+                <td>HTML Living Standard<br>* regularly updated</td>
+                <td>2019 - Present</td>
+            </tr>
+
+        </table>
+
+        <p>The <span style="color: yellow">Web Hypertext Application Technology Working Group (WHATWG)</span> and the <span style="color: green">World Wide Web Consortium (W3C)</span> both defined the HTML5 specification. The WHATWG now maintains the single, authoritative HTML Living Standard.</p>
+
+    </section>
+
+    
+
+    <section>
+
+        <h2>Purpose: HTML vs PDF vs MS Word</h2>
+
+        <table>
+            <tr>
+                <th>Format</th>
+                <th>Main Purpose</th>
+                <th>Why Choose It</th>
+            </tr>
+
+            <tr>
+                <td>🌐 HTML</td>
+                <td>Publishing content on the internet</td>
+                <td>
+                    • Viewable in any web browser<br>
+                    • Easy to share with a link<br>
+                    • Can include images, video, and interactive elements<br>
+                    • Works well on phones and computers
+                </td>
+            </tr>
+
+            <tr>
+                <td>📄 PDF</td>
+                <td>Sharing finalized documents</td>
+                <td>
+                    • Layout stays exactly the same everywhere<br>
+                    • Good for printing<br>
+                    • Difficult to accidentally edit<br>
+                    • Common for forms, reports, manuals
+                </td>
+            </tr>
+
+            <tr>
+                <td>📝 MS Word</td>
+                <td>Writing and editing documents</td>
+                <td>
+                    • Easy to create and edit content<br>
+                    • Many formatting tools<br>
+                    • Good for drafts and collaboration<br>
+                    • Widely used in offices and schools
+                </td>
+            </tr>
+
+        </table>
+
+    </section>
+
+    <section>
+
+        <h2>HTML header</h2>
+
+        <pre>
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+    &lt;title>My Story 1&lt;/title>
+&lt;/head>
+&lt;body>
+    &lt;!-- start of your actual page content -->
+    
+    Hello World!
+    &lt;br>
+    I wish today is weekend!
+
+    &lt;!-- end of your actual page content -->
+&lt;/body>
+&lt;/html>            
+        </pre>
+    </section>
+
+    <section>
+
+        <h2>Common document headers</h2>
+
+        <div style="text-align: left; border: 1px solid gray">
+            
+
+            <h1 style="text-align: left;">&lt;h1> tag (header 1), must be only 1 in each web page</h1>
+            <h2 style="text-align: left;">&lt;h2> tag (header 2), can be unlimited</h2>
+            <h3>&lt;h3> tag (header 3), can be unlimited</h3>
+            <h4>&lt;h4> tag (header 4), can be unlimited</h4>
+            <h5>&lt;h5> tag (header 5), can be unlimited</h5>
+            <h6>&lt;h6> tag (header 6), can be unlimited</h6>
+        </div>
+    </section>
+
+    <section>
+
+        <h2>Sample HTML styling</h2>
+
+        <table>
+            <tr>
+                <th style="width: 50%">Code</th>
+                <th>Displayed</th>
+            </tr>
+
+            <tr>
+                <td>
+                    <pre>&lt;p>Hello, this is a paragraph&lt;/p></pre>
+                </td>
+                <td>
+                    <p>Hello, this is a paragraph</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <pre>This text is &lt;span style="color: red">red&lt;/span>.</pre>
+                </td>
+                <td>This text is <span style="color: red">red</span>.
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <pre>This is green&lt;span style="color: #00ff00">&lt;/span>, can you see?</pre>
+                </td>
+                <td>This is <span style="color: #00ff00">green</span>, can you see?
+                </td>
+            </tr>
+
+            <tr>
+                <td><pre>HTML ignores        many spaces... and also
+line breaks in the code... the browser will still display them as normal flowing text.</pre>
+                </td>
+                <td>HTML ignores        many spaces... and also
+line breaks in the code... the browser will still display them as normal flowing text.</td>
+            </tr>
+
+            <tr>
+                <td><pre>Dorothy lives on a Kansas farm when a cyclone lifts her house and drops it in the magical land of Oz.&lt;br>To return home, she follows the Yellow Brick Road to the Emerald City.&lt;br>Along the way she befriends a Scarecrow who wants a brain, a Tin Woodman who longs for a heart, and a Cowardly Lion seeking courage.&lt;br>They hope the Wizard will grant their wishes. After facing witches, dangers, and doubts, they discover the gifts they wanted were already inside them.&lt;br>Dorothy learns there is no place like home, and with new friends and wisdom returns safely home.</pre></td>
+                <td>Dorothy lives on a Kansas farm when a cyclone lifts her house and drops it in the magical land of Oz.<br>To return home, she follows the Yellow Brick Road to the Emerald City.<br>Along the way she befriends a Scarecrow who wants a brain, a Tin Woodman who longs for a heart, and a Cowardly Lion seeking courage.<br>They hope the Wizard will grant their wishes. After facing witches, dangers, and doubts, they discover the gifts they wanted were already inside them.<br>Dorothy learns there is no place like home, and with new friends and wisdom returns safely home.
+                </td>
+            </tr>
+
+            <tr>
+                <td><pre>&lt;img src="https://e7.pngegg.com/pngimages/390/229/png-clipart-logo-html5-brand-design-text-logo.png"></pre></td>
+                <td><img src="https://e7.pngegg.com/pngimages/390/229/png-clipart-logo-html5-brand-design-text-logo.png"></td>
+            </tr>
+
+            <tr>
+                <td><pre>&lt;img src="https://e7.pngegg.com/pngimages/390/229/png-clipart-logo-html5-brand-design-text-logo.png" style="width: 100px"></pre></td>
+                <td><img src="https://e7.pngegg.com/pngimages/390/229/png-clipart-logo-html5-brand-design-text-logo.png" style="width: 100px"></td>
+            </tr>
+
+            <tr>
+                <td><pre>&lt;a href="https://www.nomorsuper.com" target="_blank">Marketplace Nomor Cantik Indonesia&lt;/a></pre></td>
+                <td><a href="https://www.nomorsuper.com" target="_blank">Marketplace Nomor Cantik Indonesia</a></td>
+            </tr>
+
+        </table>
+
+    </section>
+
+    <section>
+
+        <h2>Notes working with HTML</h2>
+
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Note</th>
+            </tr>
+
+            <tr>
+                <td>⬜ Multiple spaces</td>
+                <td>Displayed as a single space in the browser</td>
+            </tr>
+
+            <tr>
+                <td>↵ Line break</td>
+                <td>Pressing Enter in HTML does not create a new line (use &lt;br&gt; or &lt;p&gt;)</td>
+            </tr>
+
+            <tr>
+                <td>🎨 Styling</td>
+                <td>Dynamic and very flexible, the sky is the limit, need time to learn.</td>
+            </tr>
+
+
+        </table>
+    </section>
+
+    <section>
+
+        <h2>Comparison between HTML vs MS Word vs PDF</h2>
+
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>HTML</th>
+                <th>PDF</th>
+                <th>MS Word</th>
+            </tr>
+            <tr>
+                <td>💻 Require app to view</td>
+                <td>No (built-in browser in modern OS)</td>
+                <td>Yes</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>🖨️ Printing Ability</td>
+                <td>Can but difficult</td>
+                <td>Easy</td>
+                <td>Easy</td>
+            </tr>
+            <tr>
+                <td>✏️ Creation<br>(when offline)</td>
+                <td>Easy<br>(any text editor)</td>
+                <td>Difficult<br>(require non-free app)</td>
+                <td>Medium<br>(need compatible app)</td>
+            </tr>
+            <tr>
+                <td>🌐 Internet Friendly</td>
+                <td>Yes (designed for web)</td>
+                <td>Limited</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>📄 File count</td>
+                <td>Maybe more than 1 (external files are stored separately)</td>
+                <td>1 file (include everything)</td>
+                <td>1 file (include everything)</td>
+            </tr>
+            <tr>
+                <td>📦 File Size</td>
+                <td>Very small</td>
+                <td>Medium</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td>🔗 Supports Links</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Limited</td>
+            </tr>
+            <tr>
+                <td>🎬 Multimedia (Video/Audio)</td>
+                <td>Yes</td>
+                <td>No</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>🎨 Styling</td>
+                <td>CSS, the sky is the limit</td>
+                <td>Limited</td>
+                <td>Limited</td>
+            </tr>
+
+            <tr>
+                <td>⚡ Programming</td>
+                <td>JavaScript (JS), you can make game, the sky is the limit</td>
+                <td>No</td>
+                <td>No</td>
+            </tr>
+            
+            <tr>
+                <td>📱 Mobile Friendly<br>(small screen size)</td>
+                <td>Yes (responsive)</td>
+                <td>No</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>📤 Sharing Method</td>
+                <td>Website link (address)</td>
+                <td>Send file</td>
+                <td>Send file</td>
+            </tr>
+
+
+        </table>
+
+    </section>
+
+    <section>
+        <h2></h2>
+    </section>
+
+    <section>
+        <h2>Ideas Collection</h2>
+
+        <p>For content to be shared online, there are many social medias that can store our content freely, such as:</p>
+
+        <ul>
+            <li>Youtube: store unlimited videos (public or private)</li>
+            <li>Instagram + TikTok: store photos or short videos.</li>
+            <li>Github: store file (source code, document, images, etc.)</li>
+            <li>What other social media and what do they store?</li>
+        </ul>
+
+        <p>What is your ideas or plan to write HTML?</p>
+
+        <ul>
+            <li>Write online diary.</li>
+            <li>Write sci-fi stories.</li>
+            <li>Online CV/resume.</li>
+            <li>Photo gallery.</li>
+        </ul>
+    </section>
+
+    <section>
+
+        <h2>Tips and Tricks</h2>
+
+        <table>
+            <tr>
+                <th>What</th>
+                <th>How</th>
+            </tr>
+
+            <tr>
+                <td>Edit Mode<br>To copy text</td>
+                <td>Open browser's developer mode.<br><br>In console, type:<br><br>
+                document.designMode="on"</td>
+            </tr>
+
+            <tr>
+                <td>See the content of a page<br>To learn how it works</td>
+                <td>Open browser's developer mode<br><br>
+                    use mouse to inspect the elements.
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+
+        <h2>Working with Github</h2>
+        <ol>
+            <li>Create index.html
+                <ul>
+                    <li>Create Github account</li>
+                    <li>Create a new repository, enter repository name, eg: "my_first_web_page".
+                        <ul>
+                            <li>Choose visibility as "Public".</li>
+                            <li>Turn on option "add README".</li>
+                            <li>Click "Create repository" button.</li>
+                        </ul>
+                    </li>
+                    <li>Create a new file.
+                        <ul>
+                            <li>Click "add file" -> Create new file.</li>
+                            <li>In input box filename: enter 'www/' (NOTE: type '/' at the end) then 'index.html' -> this will create a new directory 'www' and create a new file named 'index.html' inside it.</li>
+                            <li>Click the button "Commit changes".</li>
+                            <li>In commit message: 'create my first index.html' or whatever message to remind yourself about this action.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Write HTML code file
+                <ul>
+                    <li>Go back to main screen by clicking the "Code" tab on top-left.</li>
+                    <li>Open Github dev (file editor) by typing "." with your keyboard, web url will changed, eg:  https://github.dev/HMaxF/html_for_beginner/tree/main/www</li>
+                    <li>Highlight the "index.html" under "www" directory.</li>
+                    <li>Type '!' (exclamation mark) then enter, it will create the standard HTML header.</li>
+                    <li>Between the HTML tag &lt;body>...&lt;/body>, type something, eg: Hello world, how are you?</li>
+                    <li>Commit the new changes by:
+                        <ul>
+                            <li>Click "Source Control" on left-side menu.</li>
+                            <li>Stage the changes, select which file to update by click the "+" icon on the file.</li>
+                            <li>Add label of what changes (for self reminder)</li>
+                            <li>Click "Commit & Push" to save</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Deploy to Github Pages
+                <ul>
+                    <li>Go back to the repository, eg: https://github.com/HMaxF/html_for_beginner</li>
+                    <li>Click Settings -> Pages, eg: https://github.com/HMaxF/html_for_beginner/settings/pages</li>
+                    <li>Select Branch: main</li>
+                    <li>Click Save button!</li>
+                    <li>Congratulation 🎉, you have a web page</li>
+                </ul>
+            </li>
+        </ol>
+
+        <a href="https://HMaxF.github.io/html_for_beginner/www" target="_blank">Open this page in browser new tab!</a>
+
+    </section>
+
+    <section>
+        <h2>Questions?</h2>
+
+        <p style="text-align: center">Hands-on time!</p>
+    </section>
+</body>
+</html>
