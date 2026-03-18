@@ -102,8 +102,9 @@
 
     <section>
         <h1>SeoulShare Tech Talk</h1>
+        <p style="text-align: center;">21 March 2026</p>
 
-        <h2>Install Local LLM (Non-Tech Friendly)</h2>
+        <h2>Install Local LLM</h2>
         <p style="text-align: center;">⏱ Duration: 15 minutes</p>
         <p style="text-align: center;">🎯 Goal: Everyone installs and runs their own AI locally</p>
 
@@ -113,23 +114,144 @@
     </section>
 
     <section>
+        <h2>What is an LLM?</h2>
+
+        <ul>
+            <li><b>LLM = Large Language Model</b></li>
+            <li>
+                An AI system trained on massive amounts of text 
+                to understand and generate human-like language
+            </li>
+            <li>
+                It can answer questions, write text, translate, and more
+            </li>
+        </ul>
+
         <h2>History of LLM</h2>
-
-        <p>LLM stands for <b>Large Language Model</b>.</p>
-
-        <p>
-            LLMs are AI systems trained on massive amounts of text to understand and generate human-like language.
-        </p>
 
         <ul>
             <li><b>Before 2017:</b> Rule-based & simple machine learning (limited)</li>
             <li><b>2017:</b> Transformer architecture (breakthrough)</li>
-            <li><b>2020:</b> GPT-3 shows strong language ability</li>
+            <li><b>2020:</b> GPT-3 shows strong language ability
+                <br>* GPT = Generative Pre-trained Transformer</li>
             <li><b>2022:</b> <b>ChatGPT</b> becomes first widely used public AI</li>
         </ul>
 
-        <p><b>First public breakthrough:</b> ChatGPT (OpenAI, 2022)</p>
+        <p>Notes:</p>
+        <ul>
+            <li>All GPT models are LLMs, But not all LLMs are GPT.</li>
+            <li>"All Hondas are cars, but not all cars are Hondas."</li>
+        </ul>
     </section>
+
+    <section>
+        <h2>What are the LLM examples?</h2>
+
+        <ul>
+            <li>ChatGPT by OpenAI</li>
+            <li>Gemini by Google</li>
+            <li>Claude by Anthropic</li>
+            <li>LLaMa by Meta</li>
+            <li>Copilot by Microsoft</li>
+            <li>etc.</li>
+        </ul>
+
+        <p>To try these free LLM models, go to <a href="https://use.ai" target="_blank">Use AI</a></p>
+    </section>
+
+
+    <section>
+        <h2>How LLM Works?</h2>
+
+        <ol>
+            <li><b>Trained on massive data</b>
+                <br>• Billions of sentences from books, websites, conversations
+                <br>• Learns patterns of how humans write and speak
+            </li>
+
+            <li><b>Understands your input (prompt)</b>
+                <ul>
+                    <li>LLM does NOT truly understand like humans</li>
+                    <li>It recognizes patterns and predicts what comes next</li>
+                    <li>Examples:
+                        <ul>
+                            <li>“What is the capital of France?” → “Paris”</li>
+                            <li>“Write an email…” → generates email format</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li><b>Breaks text into tokens</b>
+                <br>Token = small piece of text:
+                <ul>
+                    <li>A word</li>
+                    <li>Part of a word</li>
+                    <li>Punctuation</li>
+                </ul>
+
+                Examples:
+                <ul>
+                    <li>"Today is Sunday!" → ["Today", "is", "Sunday", "!"]</li>
+                    <li>"playing" → ["play", "ing"]</li>
+                    <li>"unbelievable" → ["un", "believ", "able"]</li>
+                </ul>
+            </li>
+
+            <li><b>Converts tokens into numbers (the “magic”)</b>
+                <ul>
+                    <li>["Today", "is", "Sunday", "!"] → [100213, 23421, 5667561, 50]</li>
+                    <li>AI understands numbers, not words</li>
+                    <li>Finds patterns using these numbers</li>
+                </ul>
+            </li>
+
+            <li><b>Predicts the next word</b>
+                <ul>
+                    <li>Based on probability from training data</li>
+                    <li>Builds sentence one word at a time</li>
+                </ul>
+            </li>
+
+            <li><b>Remembers conversation (Context Window)</b>
+                <ul>
+                    <li>Stores recent conversation (e.g. ~128K tokens)</li>
+                    <li>Helps maintain context and continuity</li>
+                    <li>Important for better answers and fewer mistakes ("hallucinations")</li>
+                </ul>
+            </li>
+        </ol>
+
+        <p><b>💡 Simple analogy:</b><br>
+        “LLM is like a super-smart autocomplete trained on the entire internet.”</p>
+    </section>
+
+    <section>
+        <h2>What is LLM Hallucination?</h2>
+
+        <p>
+            <b>Hallucination</b> = when AI gives a confident but incorrect answer.
+        </p>
+
+        <ul>
+            <li>AI may invent facts</li>
+            <li>AI may give outdated or incomplete information</li>
+            <li>The answer sounds correct, but is actually wrong</li>
+        </ul>
+
+        <p><b>Example:</b></p>
+        <p>
+            Asking for a book reference → AI may generate a book title or author that does not exist
+        </p>
+
+        <p>
+            💡 LLMs are designed to <b>always generate a response</b>, 
+            even when they are uncertain or no right answer.
+        </p>
+
+        <p><b>Lesson:</b> Always verify important information ✅</p>
+    </section>
+
 
     <section>
         <h2>How to Build an LLM?</h2>
@@ -149,63 +271,7 @@
     </section>
 
     <section>
-        <h2>How LLM Works?</h2>
-
-        <p>LLM works like a very smart “next word predictor”.</p>
-
-        <ol>
-            <li>You type a question</li>
-            <li>Model predicts the most likely next word</li>
-            <li>Repeats this process very fast</li>
-        </ol>
-
-        <p><b>Important:</b></p>
-        <ul>
-            <li>It does NOT “think” like a human</li>
-            <li>It predicts based on patterns in data</li>
-        </ul>
-
-        <p>💡 Example: “The capital of Korea is…” → “Seoul”</p>
-    </section>
-
-    <section>
-        <h2>What is LLM Hallucination?</h2>
-
-        <p>
-            Hallucination = when AI gives a confident but wrong answer.
-        </p>
-
-        <ul>
-            <li>AI may invent facts</li>
-            <li>AI may give outdated info</li>
-            <li>Sounds correct, but is wrong</li>
-        </ul>
-
-        <p><b>Example:</b></p>
-        <p>
-            Asking for a book reference → AI may create a fake book that doesn’t exist
-        </p>
-
-        <p><b>Lesson:</b> Always verify important information ✅</p>
-    </section>
-
-    <section>
-        <h2>Future of LLM</h2>
-
-        <ul>
-            <li>Smaller & faster models (run on phones 💡)</li>
-            <li>Multimodal AI (text + image + voice)</li>
-            <li>Personal AI assistants</li>
-            <li>More private (local AI)</li>
-        </ul>
-
-        <p>
-            🚀 Future = “Your personal AI, always with you”
-        </p>
-    </section>
-
-    <section>
-        <h2>Applications of LLM</h2>
+        <h2>What are the applications of LLM?</h2>
 
         <ul>
             <li>
@@ -231,7 +297,37 @@
     </section>
 
     <section>
-        <h2>Local LLM Apps (Easy Install)</h2>
+        <h2>What are the future of LLM?</h2>
+
+        <ul>
+            <li>Smaller & faster models (run on phones 💡)</li>
+            <li>Multimodal AI (text + image + voice)</li>
+            <li>Personal AI assistants</li>
+            <li>More private (local AI)</li>
+        </ul>
+
+        <p>
+            🚀 Future = “Your personal AI, always with you”
+        </p>
+    </section>
+
+    <section>
+        <h2>Questions?</h2>
+
+        <p style="text-align: center;">🙋 Ask anything!</p>
+
+        <p style="text-align: center;">
+            👉 Now: Hands-on installation time
+        </p>
+
+        <p style="text-align: center;">
+            “Let’s install your first local AI 🚀”
+        </p>
+    </section>
+
+
+    <section>
+        <h2>How to install LLM locally ?</h2>
 
         <ol>
             <li>
@@ -257,7 +353,7 @@
     </section>
 
     <section>
-        <h2>Models for Low RAM (No GPU)</h2>
+        <h2>What models for low RAM (no GPU)?</h2>
 
         <p>Good models for normal laptops:</p>
 
@@ -265,6 +361,7 @@
             <li><b>Phi-3</b> → very small, fast</li>
             <li><b>Gemma</b> → lightweight, stable</li>
             <li><b>Mistral (7B)</b> → good balance</li>
+            <li>LLAMA3.3-8B-Instruct Thinking Heretic Uncensored Claude 4.5 Opus High Reasoning</li>
         </ul>
 
         <p><b>Minimum requirement:</b></p>
@@ -273,21 +370,15 @@
             <li>16GB RAM → Better experience</li>
         </ul>
 
-        <p>💡 Tip: Choose “4-bit quantized models” for faster performance</p>
+        <p>💡 Tips:</p>
+
+        <ul>
+            <li>Choose “4-bit quantized models” for faster performance.</li>
+            <li>In LMStudio, after installed and running, open the "Model Search" to search and download your selected model.</li>
+        </ul>
+
     </section>
 
-    <section>
-        <h2>Questions?</h2>
-
-        <p style="text-align: center;">🙋 Ask anything!</p>
-
-        <p style="text-align: center;">
-            👉 Now: Hands-on installation time
-        </p>
-
-        <p style="text-align: center;">
-            “Let’s install your first local AI 🚀”
-        </p>
-    </section>
+    
 </body>
 </html>
