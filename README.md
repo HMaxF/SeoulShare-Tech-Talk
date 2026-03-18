@@ -1,5 +1,5 @@
 # SeoulShare-Tech-Talk
-Material for SeoulShare Tech Talk for non-tech
+Material for SeoulShare Tech Talk 
 
 
 ### 2026-03-21: Install LLM locally
