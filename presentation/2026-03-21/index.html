@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install local LLM - 21 March 2026 | SeoulShare Tech Talk</title>
+
+    <style>
+        
+        body {
+            color: white;
+            background-color: #000;
+
+            font-size: 16px;  
+            line-height: 1.4;
+
+            background-image:
+                url("corner_tl-gray.png"),
+                url("corner_tr-gray.png"),
+                url("corner_bl-gray.png"),
+                url("corner_br-gray.png");
+
+            background-position:
+                top left,
+                top right,
+                bottom left,
+                bottom right;
+
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100px, 100px, 100px, 100px;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        a {
+            color: yellow;
+            text-decoration: none;
+        }
+
+        .red_text {
+            color: red;
+        }
+
+        .green_text {
+            color: green;
+        }
+
+        table {
+            border-collapse: collapse;
+            max-width: 100vw;
+            margin: 0 auto; /* horizontally center */
+        }
+
+        table th, table td {
+            padding: 0.5rem;
+            border: 1px solid #666;
+        }
+
+        table th {
+            color: black;
+            background-color: brown;
+        }
+
+        table td {
+            color: white;
+            /* background-color: black; */ /* do not set color == transparent */
+
+            /* word-break: break-all;
+            word-wrap: normal; */
+        }
+
+        pre {
+            /* font-size: 1.0rem; */
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            /*word-break: break-all;*/
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        section:not(:last-child) {
+            margin-bottom: 100vh;
+        }
+        section:last-child {
+            margin-bottom: 50vh; /* put content in center vertically */
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <section>
+        <h1>SeoulShare Tech Talk</h1>
+
+        <h2>Install Local LLM (Non-Tech Friendly)</h2>
+        <p style="text-align: center;">⏱ Duration: 15 minutes</p>
+        <p style="text-align: center;">🎯 Goal: Everyone installs and runs their own AI locally</p>
+
+        <p style="text-align:center;">
+            “By the end, you will have your own ChatGPT running on your laptop.”
+        </p>
+    </section>
+
+    <section>
+        <h2>History of LLM</h2>
+
+        <p>LLM stands for <b>Large Language Model</b>.</p>
+
+        <p>
+            LLMs are AI systems trained on massive amounts of text to understand and generate human-like language.
+        </p>
+
+        <ul>
+            <li><b>Before 2017:</b> Rule-based & simple machine learning (limited)</li>
+            <li><b>2017:</b> Transformer architecture (breakthrough)</li>
+            <li><b>2020:</b> GPT-3 shows strong language ability</li>
+            <li><b>2022:</b> <b>ChatGPT</b> becomes first widely used public AI</li>
+        </ul>
+
+        <p><b>First public breakthrough:</b> ChatGPT (OpenAI, 2022)</p>
+    </section>
+
+    <section>
+        <h2>How to Build an LLM?</h2>
+
+        <p>Building an LLM is complex and requires huge resources:</p>
+
+        <ol>
+            <li>Collect massive text data (books, websites, code)</li>
+            <li>Train a neural network (millions to billions of parameters)</li>
+            <li>Use powerful GPUs (weeks/months of training)</li>
+            <li>Fine-tune with human feedback</li>
+        </ol>
+
+        <p><b>Reality:</b> This costs millions of dollars 😄</p>
+
+        <p><b>Good news:</b> You don’t need to build one—you can download and run one locally!</p>
+    </section>
+
+    <section>
+        <h2>How LLM Works?</h2>
+
+        <p>LLM works like a very smart “next word predictor”.</p>
+
+        <ol>
+            <li>You type a question</li>
+            <li>Model predicts the most likely next word</li>
+            <li>Repeats this process very fast</li>
+        </ol>
+
+        <p><b>Important:</b></p>
+        <ul>
+            <li>It does NOT “think” like a human</li>
+            <li>It predicts based on patterns in data</li>
+        </ul>
+
+        <p>💡 Example: “The capital of Korea is…” → “Seoul”</p>
+    </section>
+
+    <section>
+        <h2>What is LLM Hallucination?</h2>
+
+        <p>
+            Hallucination = when AI gives a confident but wrong answer.
+        </p>
+
+        <ul>
+            <li>AI may invent facts</li>
+            <li>AI may give outdated info</li>
+            <li>Sounds correct, but is wrong</li>
+        </ul>
+
+        <p><b>Example:</b></p>
+        <p>
+            Asking for a book reference → AI may create a fake book that doesn’t exist
+        </p>
+
+        <p><b>Lesson:</b> Always verify important information ✅</p>
+    </section>
+
+    <section>
+        <h2>Future of LLM</h2>
+
+        <ul>
+            <li>Smaller & faster models (run on phones 💡)</li>
+            <li>Multimodal AI (text + image + voice)</li>
+            <li>Personal AI assistants</li>
+            <li>More private (local AI)</li>
+        </ul>
+
+        <p>
+            🚀 Future = “Your personal AI, always with you”
+        </p>
+    </section>
+
+    <section>
+        <h2>Applications of LLM</h2>
+
+        <ul>
+            <li>
+                <b>Copywriting</b><br>
+                Generate emails, ads, blog posts, product descriptions
+            </li>
+
+            <li>
+                <b>Chatbot (Knowledge Base)</b><br>
+                Answer company FAQs, customer support, internal docs
+            </li>
+
+            <li>
+                <b>Code Generation</b><br>
+                Generate code, SQL queries, scripts, websites
+            </li>
+
+            <li>
+                <b>Text Generation</b><br>
+                Summarize, translate, write stories, create content
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Local LLM Apps (Easy Install)</h2>
+
+        <ol>
+            <li>
+                <b>LM Studio</b><br>
+                https://lmstudio.ai/<br>
+                👉 Easiest (GUI, no coding)
+            </li>
+
+            <li>
+                <b>Ollama</b><br>
+                https://ollama.com/<br>
+                👉 Simple command-based
+            </li>
+
+            <li>
+                <b>GPT4All</b><br>
+                https://gpt4all.io/<br>
+                👉 Beginner-friendly, works on low-end PC
+            </li>
+        </ol>
+
+        <p>💡 Recommendation: Use <b>LM Studio</b> for this session</p>
+    </section>
+
+    <section>
+        <h2>Models for Low RAM (No GPU)</h2>
+
+        <p>Good models for normal laptops:</p>
+
+        <ul>
+            <li><b>Phi-3</b> → very small, fast</li>
+            <li><b>Gemma</b> → lightweight, stable</li>
+            <li><b>Mistral (7B)</b> → good balance</li>
+        </ul>
+
+        <p><b>Minimum requirement:</b></p>
+        <ul>
+            <li>8GB RAM → OK</li>
+            <li>16GB RAM → Better experience</li>
+        </ul>
+
+        <p>💡 Tip: Choose “4-bit quantized models” for faster performance</p>
+    </section>
+
+    <section>
+        <h2>Questions?</h2>
+
+        <p style="text-align: center;">🙋 Ask anything!</p>
+
+        <p style="text-align: center;">
+            👉 Now: Hands-on installation time
+        </p>
+
+        <p style="text-align: center;">
+            “Let’s install your first local AI 🚀”
+        </p>
+    </section>
+</body>
+</html>
