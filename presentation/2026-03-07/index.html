@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Machine Learning introduction: 15 minutes</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link rel="canonical" href="https://seoulshare.co.kr/presentation/tech-talk/07-March-2026-Machine-Learning-Introduction.html">
+
+    <meta name="robots" content="index,follow">
+    <meta name="distribution" content="Global">
+
+    <!-- open graph -->
+    <meta property="og:url" content="https://seoulshare.co.kr/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="SeoulShare Tech Talk Community">
+    <meta property="og:title" content="Machine Learning Introduction">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="https://seoulshare.co.kr/presentation/tech-talk/seoulshare-tech-talk-profile-256.png">
+    <meta property="og:image:width" content="256">
+    <meta property="og:image:height" content="256">
+    <meta property="og:image:type" content="image/png">
+  
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e293b;
+            --accent: #3b82f6;
+            --text: #334155;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --nav-bg: rgba(15, 23, 42, 0.1);
+            /*--slide-height: 650px; /* Fixed height for consistency */
+        }
+
+        body.dark-mode {
+            --primary: #f8fafc;
+            --accent: #60a5fa;
+            --text: #cbd5e1;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --nav-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease;
+
+            /* no CSS counter resets anymore; numbers will be added by JavaScript */
+        }
+
+        /* Navigation Buttons */
+        .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--nav-bg);
+            border: 1px solid rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: var(--primary);
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-btn:hover { background: var(--accent); color: white; transform: translateY(-50%) scale(1.1); }
+        #prevBtn { left: 30px; }
+        #nextBtn { right: 30px; }
+
+        #modeToggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            color: var(--primary);
+            background: var(--nav-bg);
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            z-index: 1001;
+        }
+
+        /* Slide Container */
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 1.0rem;
+            background: var(--card);
+            /* border-radius: 40px; */
+            box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease-out;
+
+            /* Allow vertical scrolling if content exceeds height (small smartphone) */
+            overflow-x: hidden;
+            overflow-y: auto; 
+        }
+        /* numbering will be handled dynamically by JS; see .page-number class below */
+        /* removed ::before counter implementation */
+
+        .slide.active { display: block; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 { color: var(--accent); font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 30px; text-align: center; }
+        h2 { color: var(--accent); font-size: clamp(1.4rem, 4vw, 2.2rem); margin-bottom: 20px; border-bottom: 2px solid var(--nav-bg); padding-bottom: 10px; }
+        p { font-size: clamp(0.9rem, 2.5vw, 1rem); }
+        li { font-size: clamp(0.9rem, 2.5vw, 1rem); }
+
+        .highlight-box {
+            background: rgba(59, 130, 246, 0.08);
+            padding: 1.0rem;
+            border-radius: 1.0rem;
+            border-left: 10px solid var(--accent);
+            /* margin: 25px 0; */
+        }
+
+        .connection-map {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .circle {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .arrow { font-size: 3rem; color: var(--accent); font-weight: bold; }
+
+        ul { list-style: none; padding: 0; }
+        li { margin: 18px 0; line-height: 1.3; }
+        li strong { color: var(--accent); }
+
+        .image-placeholder {
+            margin-top: 20px;
+            font-style: italic;
+            color: #94a3b8;
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 15px;
+        }
+
+        /* Circular Page Number Indicator on bottom right */
+        .page-number {
+            position: fixed; /* stay during scroll */
+            bottom: -20px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.0rem;
+            box-shadow: -5px -5px 10px rgba(59, 130, 246, 0.3);
+            z-index: 999;
+        }
+
+        /* Adjusting slide padding to account for the corner element */
+        .slide {
+            position: relative; /* Essential for absolute positioning of child */
+        }
+
+        /* Mobile and Tablet Responsive Design */
+        @media (max-width: 768px) {
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            #prevBtn { left: 15px; }
+            #nextBtn { right: 15px; }
+
+            .circle {
+                width: 140px;
+                height: 140px;
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            .arrow { font-size: 2rem; }
+
+            .page-number {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-height: 600px) and (max-width: 1024px) {
+            .slide {
+                padding: 0.7rem;
+            }
+
+            h1 {
+                margin-bottom: 15px;
+            }
+
+            h2 {
+                margin-bottom: 10px;
+            }
+
+            .highlight-box {
+                padding: 0.8rem;
+                margin: 8px 0;
+            }
+
+            li {
+                margin: 8px 0;
+            }
+        }
+
+        /* Scenario Grid & Mini-Cards */
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: 1fr ; /*(auto-fit, minmax(280px, 1fr));*/
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .mini-card {
+            background: var(--bg);
+            padding: 1.2rem;
+            border-radius: 15px;
+            border: 1px solid var(--nav-bg);
+            border-left: 5px solid #f59e0b;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .mini-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        /* .mini-card strong {
+            display: block;
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        } */
+
+        /* .mini-card p {
+            margin: 0;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        } */
+
+        /* Specific styling for the Beyond Linear Regression cards */
+        /* .mini-card[style*="border-left"] {
+            background: var(--card);
+        } */
+
+        .faq span {
+            display: block;
+        }
+        .faq .q {
+            color: #f66;
+        }
+        .faq .a {
+            color: #6f6;
+        }
+        .faq .d {
+            color: #66f;
+        }
+
+    </style>
+
+    <script>
+        let currentSlide = 0;
+        let slides = [];
+
+        window.addEventListener('load', () => {
+            // load data
+            slides = document.querySelectorAll('.slide');
+            // initialize first slide and its number
+            showSlide(0);
+
+        });
+        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('orientationchange', checkOrientation);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight") changeSlide(1);
+            if (e.key === "ArrowLeft") changeSlide(-1);
+        });
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            const current = slides[index];
+            current.classList.add('active');
+
+            // ensure a page-number element exists and update its value
+            let pn = current.querySelector('.page-number');
+            if (!pn) {
+                pn = document.createElement('div');
+                pn.className = 'page-number';
+                current.appendChild(pn);
+            }
+            pn.textContent = index + 1;
+            
+            // Visual feedback for buttons
+            document.getElementById('prevBtn').style.opacity = (index === 0) ? '0.1' : '0.5';
+            document.getElementById('nextBtn').style.opacity = (index === slides.length - 1) ? '0.1' : '0.5';
+            document.getElementById('prevBtn').style.pointerEvents = (index === 0) ? 'none' : 'auto';
+            document.getElementById('nextBtn').style.pointerEvents = (index === slides.length - 1) ? 'none' : 'auto';
+        }
+
+        function changeSlide(step) {
+            let next = currentSlide + step;
+            if (next >= 0 && next < slides.length) {
+                currentSlide = next;
+                showSlide(currentSlide);
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Orientation check for mobile devices
+        function checkOrientation() {
+            const message = document.getElementById('orientation-message');
+            if (window.innerHeight > window.innerWidth) {
+                message.style.display = 'block';
+
+                //requestToFullScreen();
+            } else {
+                message.style.display = 'none';
+            }
+        }
+
+        function requestToFullScreen() {
+            // First, request full-screen mode
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                document.documentElement.msRequestFullscreen();
+            }
+
+            // Then, attempt to lock the orientation to landscape
+            screen.orientation.lock('landscape')
+                .then(() => {
+                    console.log("Orientation locked to landscape.");
+                })
+                .catch((error) => {
+                    console.error("Orientation lock failed:", error);
+                });
+
+        }
+    </script>
+</head>
+<body>
+
+    <button id="modeToggle" onclick="toggleDarkMode()" style="opacity:0.7">🌓 Switch Theme</button>
+    <div id="prevBtn" class="nav-btn" onclick="changeSlide(-1)">&#10094;</div>
+    <div id="nextBtn" class="nav-btn" onclick="changeSlide(1)">&#10095;</div>
+
+    <div class="slide-container">
+
+        <div class="slide active">
+            <div style="text-align: center; margin-top: 50px;">
+                <span class="tag" style="background: var(--accent); color: white; padding: 10px 20px; border-radius: 50px; font-weight: bold;">WELCOME</span>
+                <h1 style="font-size: 4rem; margin-top: 20px;">Peeling Back the Curtain</h1>
+                <p style="font-size: 1.8rem; color: var(--accent); font-weight: 300;">Introduction of Machine Learning in 15 minutes.</p>
+                
+                <div class="highlight-box" style="display: inline-block; text-align: left; max-width: 600px; margin-top: 30px;">
+                    <p style="margin: 10px 0;">✅ <strong>No Code</strong> required</p>
+                    <p style="margin: 10px 0;">✅ <strong>No Math Degree</strong> needed</p>
+                    <p style="margin: 10px 0;">✅ <strong>Real Answers</strong> for non-technical curious minds</p>
+                </div>
+                
+                <p style="margin-top: 40px; font-style: italic; color: #94a3b8;">Click the arrow on the right to start the journey →</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h1>Presentation Roadmap</h1>
+            <p style="text-align: center; font-size: 1.3rem;">Simplifying the world of AI into human terms.</p>
+            <div class="highlight-box">
+                <ul style="cursor: pointer;">
+                    <li onclick="goToSlide(2)"><strong>Chapter 1:</strong> What is Machine Learning?</li>
+                    <li onclick="goToSlide(3)"><strong>Chapter 2:</strong> When did it start?</li>
+                    <li onclick="goToSlide(4)"><strong>Chapter 3:</strong> How are ML and Linear Regression connected?</li>
+                    <li onclick="goToSlide(5)"><strong>Chapter 4:</strong> What is Linear Regression?</li>
+                    <li onclick="goToSlide(6)"><strong>Chapter 5:</strong> What does Linear Regression look like?</li>
+                    <li onclick="goToSlide(7)"><strong>Chapter 6:</strong> What are the examples?</li>
+                    <li onclick="goToSlide(8)"><strong>Chapter 7:</strong> What lies beyond Linear Regression?</li>
+                    <li onclick="goToSlide(9)"><strong>Chapter 8:</strong> Conclusion</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2>What is Machine Learning?</h2>
+            
+            <p>At its simplest level, <strong>Machine Learning</strong> is the art of teaching a computer to <strong>predict the future by studying the past.</strong></p>
+            
+            <div class="highlight-box">
+                <p>In traditional computing, humans write <strong>Rules</strong> (If this happens, do that).<br>
+                In Machine Learning, we give the computer <strong>Examples</strong> and let it find the patterns itself.</p>
+            </div>
+
+            <p>Think of it as a three-step journey:</p>
+            
+            <div class="scenario-grid">
+                <div class="mini-card">
+                    <strong>1. The History</strong>
+                    <p>We feed the machine thousands of past examples (Data). Like showing a child 100 pictures of an apple.</p>
+                </div>
+                <div class="mini-card">
+                    <strong>2. The Relationship</strong>
+                    <p>The machine clarifies the "Common Threads" or patterns. It learns that apples are usually round and red.</p>
+                </div>
+                <div class="mini-card">
+                    <strong>3. The Prediction</strong>
+                    <p>When shown a <em>new</em> fruit it has never seen, it uses those patterns to "guess" if it's an apple.</p>
+                </div>
+            </div>
+
+            
+
+            <p style="margin-top: 20px;"><strong>The Bottom Line:</strong> Machine Learning turns a "Rule-Follower" into a "Pattern-Seeker." It allows computers to handle messy, real-world situations where the rules are too complicated for a human to write down.</p>
+        </div>
+
+        <div class="slide">
+            <h2>When did it start?</h2>
+            <p>In the 1950s, computers were massive calculators that only did what they were told. <strong>Arthur Samuel</strong>, an IBM researcher, changed everything.</p>
+            <div class="highlight-box">
+                <p>Samuel wanted to play Checkers, but he didn't want to program millions of "If/Then" rules for every possible board state. It was impossible for a human to write that much code.</p>
+            </div>
+            <p><strong>The Breakthrough:</strong> He wrote a program that recorded every game played. By analyzing which moves led to a "Win" (History) and which led to a "Loss," the machine began to recognize <strong>Relationships</strong> between positions and victory. By 1962, the computer beat a Checkers master—it had officially "learned" better than its creator.</p>
+        </div>
+
+        <div class="slide">
+            <h2>How are ML and Linear Regression connected?</h2>
+            <p>A common question is: <em>Are Machine Learning and Linear Regression the same thing?</em> Not exactly. They work together like a <strong>Strategy</strong> and a <strong>Tactical Tool</strong>.</p>
+            
+            <div class="connection-map">
+                <div class="circle">MACHINE LEARNING<br><br><small>The Goal: Using history to find hidden patterns.</small></div>
+                <div class="arrow">➜</div>
+                <div class="circle" style="color: var(--text); background-color: var(--bg);">LINEAR REGRESSION<br><br><small>The Tool: The mathematical "ruler" used to measure a relationship.</small></div>
+            </div>
+
+            <p>Think of <strong>Machine Learning</strong> as the "School of Science." <strong>Linear Regression</strong> is just the first "Equation" students learn to solve problems. It is the foundation upon which almost all modern AI is built.</p>
+        </div>
+
+        <div class="slide">
+            <h2>What is Linear Regression?</h2>
+            <p>It is the science of the <strong>"Straight Line."</strong> It assumes the world follows a consistent, proportional logic.</p>
+            
+            <div class="highlight-box">
+                <ul>
+                    <li><strong>History:</strong> We gather past data (the "dots" on a chart).</li>
+                    <li><strong>Relationship:</strong> We find the "Slope" (how much one thing changes another).</li>
+                    <li><strong>Prediction:</strong> We extend that line into the future to guess an outcome.</li>
+                </ul>
+            </div>
+            <p>When you hear "Linear Regression," just think of a <strong>straight trend line</strong> that tells you: "If you increase X, Y will reliably follow."</p>
+            <p>Linear Regression is a continuous (no ends) value prediction.</p>
+
+        </div>
+
+        <div class="slide">
+            <h2>What does Linear Regression look like?</h2>
+
+            <img src="linear_regression_1.svg" style="display: block; margin: auto; max-height: 250px" alt="">
+
+            <h3 style="text-align: center">The Uber price prediction before start the ride</h3>
+            
+            <ul>
+                <li><strong>Finding the Baseline:</strong> Uber doesn't guess prices. They feed 'History' (Traffic, Fuel, and Time data) into a machine to find the <strong>Relationship</strong> (the Price per KM).</li>
+                <li><strong>Adapting to Local Costs:</strong> The machine automatically adjusts the slope of the line based on local variables like gasoline prices and driver income expectations, this is why the "Ruler" is different on different cities, for example Jakarta ($0.50/km) versus London ($3.00/km).</li>
+                <li><strong>The Human Role (Cleaning):</strong> Outliers (<strong>Red Dots</strong>) are abnormal data points — like a ride during a massive flood or a GPS error. Humans must identify and "clean" (remove) these out, so the machine doesn't predict using abnormal data.</li>
+            </ul>
+
+        </div>
+
+        <div class="slide">
+            <h2>What are the examples?</h2>
+            <p>Machine Learning isn't just for scientists; modern companies use "Straight Line" logic to manage our daily lives more efficiently (*)</p>
+    
+            <div class="scenario-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="mini-card">
+                    <strong>🚗 Ride-Hailing (Uber/Grab)</strong>
+                    <p>They analyze the <em>History</em> of millions of trips to fix a <em>Relationship</em> between distance and cost. This allows them to <strong>Predict</strong> your fare instantly, ensuring drivers are paid fairly and riders aren't surprised.</p>
+                </div>
+                <div class="mini-card">
+                    <strong>☕ Retail Staffing (Starbucks)</strong>
+                    <p>By studying the <em>Relationship</em> between "Time of Day" and "Customer Traffic," they <strong>Predict</strong> exactly how many Baristas are needed. This prevents long queues for you and wasted labor costs for them.</p>
+                </div>
+                <div class="mini-card">
+                    <strong>⚡ Smart Grids (Electricity)</strong>
+                    <p>Providers know that for every 1-degree rise in temperature, power demand spikes by a fixed %. They use this <em>Relationship</em> to <strong>Predict</strong> load and prevent blackouts during heatwaves.</p>
+                </div>
+                <div class="mini-card">
+                    <strong>🏠 Real Estate (Zillow/PropNext)</strong>
+                    <p>By looking at the <em>History</em> of nearby sales, machines find the <em>Relationship</em> between "Land Size" and "Market Value." This turns a "Guess" into a data-backed <strong>Price Prediction</strong>.</p>
+                </div>
+            </div>
+
+            <p style="text-align:center; font-weight: bold; font-size: 1.4rem; color: var(--accent);">Can you think of other examples?</p>
+
+            <p style="text-align: left; font-size: 0.8rem; color: red">* Note: Real-world models often use many more "ruler" variables simultaneously.</p>
+            
+        </div>
+
+        <!-- <div class="slide">
+            <h2>What lies beyond Linear Regression?</h2>
+            <p>Linear Regression is the "First Grade" of Machine Learning. Once a machine learns to draw a straight line, it can move on to more complex ways of thinking:</p>
+            
+            <div class="scenario-grid">
+                <div class="mini-card" style="border-top: 4px solid #10b981;">
+                    <strong>Logistic Regression</strong><br>
+                    <small>The "Yes or No" Machine</small>
+                    <p style="margin-top: 10px;">Instead of predicting a price, it predicts a <strong>category</strong>. Is this email spam? Is this transaction fraud?</p>
+                </div>
+                <div class="mini-card" style="border-top: 4px solid #f59e0b;">
+                    <strong>Decision Trees</strong><br>
+                    <small>The "Flowchart" Logic</small>
+                    <p style="margin-top: 10px;">The machine asks a series of Yes/No questions to reach a conclusion, just like a doctor diagnosing a patient.</p>
+                </div>
+                <div class="mini-card" style="border-top: 4px solid #8b5cf6;">
+                    <strong>Neural Networks</strong><br>
+                    <small>The "Deep Brain"</small>
+                    <p style="margin-top: 10px;">Inspired by the human brain. This is what powers <strong>Face Recognition</strong> and <strong>ChatGPT</strong>.</p>
+                </div>
+            </div>
+
+            
+
+            <div class="highlight-box" style="margin-top: 20px;">
+                <p><strong>The Takeaway:</strong> No matter how complex AI gets, it still follows the same 3 steps we learned today: <strong>History → Relationship → Prediction.</strong></p>
+            </div>
+        </div> -->
+
+        <div class="slide">
+            <h2>What lies beyond Linear Regression?</h2>
+            <p>Linear Regression is our foundation, but the world isn't always a straight line. To handle more "human" problems similar to Linear Regression, there are a few more real-world variances but these are 2 simple cousins:</p>
+
+            <div class="scenario-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="mini-card">
+                    <strong>📈 Polynomial Regression</strong>
+                    <p><em>The "Curved Ruler."</em> Used when things speed up or slow down—like the path of a rocket or how a virus spreads. It bends to fit the reality of the data.</p>
+                </div>
+                <div class="mini-card">
+                    <strong>🚥 Logistic Regression</strong>
+                    <p><em>The "Decision Maker."</em> Instead of predicting a price, it predicts a <strong>Category</strong>. Is this email Spam? (Yes/No). Is this transaction Fraud? (Yes/No).</p>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 20px;">
+                <p><strong>The Big Picture:</strong> We start with a straight line to understand the basics. Once we master that, we can bend the line or use it to make "Yes/No" decisions for the entire world.</p>
+            </div>
+        </div>
+
+
+
+        <div class="slide">
+            <h2>Conclusion</h2>
+            
+            <p>We don't use Machine Learning just because it's "cool"—we use it to solve the <strong>Human Scale Problem.</strong></p>
+
+            <div class="highlight-box">
+                <p><strong>1. Why do we need Machine Learning?</strong><br>
+                In the 1950s, we had "Small Data" that humans could manage. Today, we have "Big Data." A human brain can't analyze 10 million Uber rides or 50 years of climate patterns in a second. Machine Learning is the <strong>Digital Filter</strong> that processes the noise so we can make better decisions.</p>
+            </div>
+
+            <br>
+
+            <div class="highlight-box">
+                <p><strong>2. Why is Linear Regression still the King?</strong><br>
+                You might think a "Straight Line" is too simple for 2026, but it remains the <strong>Foundation of Trust</strong>. Unlike complex "Black Box" AI that even scientists don't fully understand, Linear Regression is <em>Explainable</em>. It tells us exactly <strong>Why</strong> and <strong>How</strong> a price changed.</p>
+            </div>
+
+            <p style="text-align:center; font-weight: bold; font-size: 1.4rem; color: var(--accent);">We use the past to clarify the present and predict the future.</p>
+
+        </div>
+
+        <div class="slide">
+            <h2>F.A.Q (Frequently Asked Questions)</h2>
+
+            <ol class="faq">
+                <li><span class="q">Can Machine Learning ever be 100% accurate?</span>
+                    <span class="a">No. In the world of data, we don't talk about "Certainty," we talk about "Probability."</span>
+                </li>
+                <li><span class="q">Will Machine Learning replace human analysts?</span>
+                    <span class="a">It replaces the drudgery, not the decision.</span>
+                    <span class="d">A calculator didn't replace accountants; it just made them faster. Machine Learning is the same—it handles the millions of "dots" so the humans can focus on the "Red Outliers" and the "Big Strategy."</span>
+                </li>
+                <li><span class="q">Can I use Linear Regression to predict next week Lotto numbers?</span>
+                    <span class="a">No, Linear Regression relies on the idea that the "History" causes or influences the "Future." In a lottery, every single draw is a "Reset.".</span>
+                    <span class="d">Linear Regression is designed to find Order. The Lottery is designed to be Entropy (Chaos). You can't use a tool meant for "proportional logic" on a system that is intentionally built to have no logic.</span>
+                </li>
+            </ol>
+
+        </div>
+
+
+        <div class="slide">
+            <h2>Thank you!</h2>
+
+            <div class="highlight-box">Are there any other questions?</div>
+        </div>
+
+        <div id="orientation-message" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); color:white; text-align:center; padding-top:40vh; font-size:1.5rem; z-index:9999;">
+            Please rotate your device to landscape orientation for the best viewing experience.
+
+            <br><br>
+
+            <button onclick="requestToFullScreen()">Request Full Screen</button>
+        </div>
+
+    </div>
+    
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"db8c7283e5a14920b924336c59980c87","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
