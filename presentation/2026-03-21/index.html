@@ -215,13 +215,25 @@
             </li>
 
             <li><b>Converts tokens into vectors (the “embedding”)</b>
-                <ul>
-                    <li><b>The ID ("barcode")</b>
-                        <br>eg: ["Today", "is", "Sunday", "!"] → [100213, 23421, 5667561, 50]</li>
-                    <li><b>The Vector ("location")</b>
-                        <br>* Each ID acts as a lookup key to find its specific location (vector) on the map, eg: a list of hundreds of decimal numbers, eg: [0.12, -0.59, 0.88,...]</li>
-                </ul>
-            </li>
+    <ul>
+        <li><b>The ID ("barcode")</b>
+            <br>eg: ["Today", "is", "Sunday", "!"] → [10213, 23421, 5661, 50]</li>
+        <li><b>The Vector ("coordinate" or "location")</b>
+            <br>* Each ID acts as a lookup key to find its specific location (vector) on the map. 
+            <br>eg: ID 10213 points to a list of hundreds of decimal numbers: [0.12, -0.59, 0.88...]</li>
+        <li><b>Build Dictionary</b>
+            <br>* The bridge that maps a <b>Token → ID → Vector</b>. 
+            <br>eg: "Today" : 10213 : [0.12, -0.59, 0.88...]</li>
+    </ul>
+
+    <p><b>Common terminology in AI math:</b></p>
+    <ul>
+        <li><b>Vector (1D)</b>: A single line of numbers (represents one word).</li>
+        <li><b>Matrix (2D)</b>: A grid of numbers (represents one sentence/paragraph).</li>
+        <li><b>Tensor (3D+)</b>: A "stack" of grids (represents a whole book or a batch of data).</li>
+        <li><b>GPU Power</b>: GPUs are "Tensor Engines." They don't just count faster; they process entire blocks of data (Tensors) in a single heartbeat.</li>
+    </ul>
+</li>
 
         </ul>
 
