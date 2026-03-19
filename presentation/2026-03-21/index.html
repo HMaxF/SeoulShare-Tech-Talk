@@ -39,6 +39,16 @@
             text-decoration: none;
         }
 
+        blockquote {
+            font-style: italic;
+            text-align: right;
+            border-left: 0.4rem solid #0f0;
+            border-radius: 0.5rem 0 0 0.5rem;
+
+            margin: 0.5rem;
+            padding-left: 0.5rem;
+        }
+
         .red_text {
             color: red;
         }
@@ -93,6 +103,23 @@
 
         h1, h2 {
             text-align: center;
+        }
+
+        li {
+            margin-top: 0.5rem;
+        }
+        li:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
+
+        ul.faq span, ol.faq span {
+            display: block;
+        }
+        span.q {
+            color: red;            
+        }
+        span.a {
+            color: yellow;
         }
 
     </style>
@@ -156,29 +183,18 @@
             <li>etc.</li>
         </ul>
 
-        <p>To try these free LLM models, go to <a href="https://use.ai" target="_blank">Use AI</a></p>
+        <p>To try these free online LLM models, go to <a href="https://use.ai" target="_blank">Use AI</a></p>
     </section>
 
-
     <section>
-        <h2>How LLM Works?</h2>
+        <h2>How to Build an LLM?</h2>
 
-        <ol>
-            <li><b>Trained on massive data</b>
-                <br>• Billions of sentences from books, websites, conversations
-                <br>• Learns patterns of how humans write and speak
-            </li>
-
-            <li><b>Understands your input (prompt)</b>
+        <ul>
+            <li>Collect massive text data (books, websites, code)
                 <ul>
-                    <li>LLM does NOT truly understand like humans</li>
-                    <li>It recognizes patterns and predicts what comes next</li>
-                    <li>Examples:
-                        <ul>
-                            <li>“What is the capital of France?” → “Paris”</li>
-                            <li>“Write an email…” → generates email format</li>
-                        </ul>
-                    </li>
+                    <li>Train a neural network (millions to trillions of parameters)</li>
+                    <li>Use powerful GPUs (hours/days/weeks/months of training)</li>
+                    <li>Fine-tune with human feedback</li>
                 </ul>
             </li>
 
@@ -198,77 +214,113 @@
                 </ul>
             </li>
 
-            <li><b>Converts tokens into numbers (the “magic”)</b>
+            <li><b>Converts tokens into vectors (the “embedding”)</b>
                 <ul>
-                    <li>["Today", "is", "Sunday", "!"] → [100213, 23421, 5667561, 50]</li>
-                    <li>AI understands numbers, not words</li>
-                    <li>Finds patterns using these numbers</li>
+                    <li><b>The ID ("barcode")</b>
+                        <br>eg: ["Today", "is", "Sunday", "!"] → [100213, 23421, 5667561, 50]</li>
+                    <li><b>The Vector ("location")</b>
+                        <br>* Each ID acts as a lookup key to find its specific location (vector) on the map, eg: a list of hundreds of decimal numbers, eg: [0.12, -0.59, 0.88,...]</li>
                 </ul>
             </li>
 
-            <li><b>Predicts the next word</b>
+        </ul>
+
+        <p style="color: red;">* Oversimplified</p>
+    </section>
+
+
+    <section>
+        <h2>How LLM Works?</h2>
+        
+        <ol>
+            <li><b>Understands your input (prompt)</b>
                 <ul>
-                    <li>Based on probability from training data</li>
-                    <li>Builds sentence one word at a time</li>
+                    <li>LLM does NOT understand words like humans.</li>
+                    <li>Finding the right Context (Distance).
+                        <p>Example the word "Apple", we want to know if the user is talking about "Food" or "Technology", The AI looks at the surrounding words (the context) and calculates the Cosine Similarity (the mathematical distance) between their vectors.</p>
+
+                        <p>Sample of a simplified 2D Vectors</p>
+
+                        <table class="grid">
+                            <tr>
+                                <th>Word</th>
+                                <th>Dimension 1 (Food)</th>
+                                <th>Dimension 2 (Technology)</th>                            
+                            </tr>
+                            <tr>
+                                <td>"Apple"</td>
+                                <td>0.8</td>
+                                <td>0.7</td>
+                            </tr>
+                            <tr>
+                                <td>"Crunchy"</td>
+                                <td>0.9</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>"Smartphone"</td>
+                                <td>0.1</td>
+                                <td>0.9</td>
+                            </tr>
+                        </table>
+
+                        <p>AI calculates the distance between every tokens in the sentence.</p>
+
+                        <p>Prompt 1: "I ate a crunchy apple"</p>
+                        <p>The tokens "apple" and "crunchy", AI determines the context as the <b>shortest distance</b> is in "Food".</p>
+
+                        <p>Prompt 2: "I have apple smartphone"</p>
+                        <p>The tokens "apple" and "smartphone", AI determines the context as the <b>shortest distance</b> is in "Technology".</p>
+                    </li>
                 </ul>
             </li>
-
-            <li><b>Remembers conversation (Context Window)</b>
+            <li><b>Predicts what comes next.</b>, examples:
                 <ul>
-                    <li>Stores recent conversation (e.g. ~128K tokens)</li>
-                    <li>Helps maintain context and continuity</li>
-                    <li>Important for better answers and fewer mistakes ("hallucinations")</li>
+                    <li>“What is the capital of France?” → “Paris”</li>
+                    <li>“Write an email…” → generates email content from learned patterns.</li>
+                </ul>
+
+                <p>NOTE: the response (output) is one token at a time (streaming)!</p>
+            </li>
+
+            <li><b>Remembers conversation (Context Window).</b>
+                <ul>
+                    <li>AI application needs to keep the recent conversation.</li>
+                    <li>On the next prompt, application will need to send the recent conversation + new prompt (e.g. ~128K tokens) to the AI model Helps maintain context and continuity.
+                        <br>* Important for better answers and fewer mistakes ("hallucinations")</li>
                 </ul>
             </li>
         </ol>
 
         <p><b>💡 Simple analogy:</b><br>
         “LLM is like a super-smart autocomplete trained on the entire internet.”</p>
+
+        <p style="color: red;">* oversimplified</p>
     </section>
 
     <section>
         <h2>What is LLM Hallucination?</h2>
 
-        <p>
-            <b>Hallucination</b> = when AI gives a confident but incorrect answer.
-        </p>
+        <p><b>Hallucination</b> = when AI gives a confident but incorrect answer.</p>
 
-        <ul>
-            <li>AI may invent facts</li>
-            <li>AI may give outdated or incomplete information</li>
-            <li>The answer sounds correct, but is actually wrong</li>
-        </ul>
-
-        <p><b>Example:</b></p>
-        <p>
-            Asking for a book reference → AI may generate a book title or author that does not exist
-        </p>
-
-        <p>
-            💡 LLMs are designed to <b>always generate a response</b>, 
-            even when they are uncertain or no right answer.
-        </p>
-
-        <p><b>Lesson:</b> Always verify important information ✅</p>
-    </section>
-
-
-    <section>
-        <h2>How to Build an LLM?</h2>
-
-        <p>Building an LLM is complex and requires huge resources:</p>
+        <p>There are literally so many reasons LLM can hallucinate, some of common reasons are:</p>
 
         <ol>
-            <li>Collect massive text data (books, websites, code)</li>
-            <li>Train a neural network (millions to billions of parameters)</li>
-            <li>Use powerful GPUs (weeks/months of training)</li>
-            <li>Fine-tune with human feedback</li>
+            <li><b>Tokenization Issues</b>: the way words are broken into chunks can cause math errors or spelling hallucinations (e.g., struggling to count letters in a word).</li>
+            <li><b>Low-Precision Quantization</b>: Reducing a model from FP32 to 4-bit (to save space) can cause "rounding errors" in the AI's logic, leading to degraded accuracy.</li>
+            <li><b>Input Overload (Context Window)</b>: If the prompt (or the length of prompt + chat history) is too long (over Context Window limit), the model might "forget" the beginning of the instructions or get confused by conflicting info within the prompt.</li>
+            <li><b>Training Data Noise ("garbage in, garbage out")</b>: If the training data contains misinformation, biases, or conflicting "facts" (common on the internet), the AI will mirror those errors.</li>
+            <li><b>Knowledge Cutoffs</b>: Information was not present in the training data. If you ask about an event that happened after their training ended, they may try to "guess" based on old patterns.
+                <br>* LLMs are traditionally biased toward generating a response, though modern safety tuning is helping them admit when they don't know.</li>
         </ol>
 
-        <p><b>Reality:</b> This costs millions of dollars 😄</p>
+        <blockquote>Current LLMs do not have "intent," "malice," or "ego." They don't lie to cover their tracks or to get a promotion. They are mathematical functions predicting the next token because their goal is to provide a 'statistically satisfying' response, not necessarily a 'truthful' one."</blockquote>
 
-        <p><b>Good news:</b> You don’t need to build one—you can download and run one locally!</p>
+        <p><b>Lesson:</b> Always verify important information ✅.</p>
     </section>
+
+
+    
 
     <section>
         <h2>What are the applications of LLM?</h2>
@@ -297,18 +349,26 @@
     </section>
 
     <section>
-        <h2>What are the future of LLM?</h2>
+        <h2>F.A.Q</h2>
 
-        <ul>
-            <li>Smaller & faster models (run on phones 💡)</li>
-            <li>Multimodal AI (text + image + voice)</li>
-            <li>Personal AI assistants</li>
-            <li>More private (local AI)</li>
+        <ul class="faq">
+            <li><span class="q">If AI is just math and tokens, why does it sound so much like a human?</span>
+                <span class="a">It’s because of the scale of the high-dimensional map. While our 2D example only had 2 dimensions (Food vs. Tech), modern LLMs have thousands of dimensions. They don't just map 'what' a word is, but the emotion, tone, and formality of it. When you have trillions of these connections, the statistical 'best next word' becomes indistinguishable from human conversation.</span>
+            </li>
+            <li><span class="q">Can we ever truly 'fix' hallucinations, or is it a permanent bug?</span>
+                <span class="a">Hallucination isn't exactly a 'bug'—it's a side effect of creativity. The same mechanism that allows an AI to write a poem it has never seen before is the one that allows it to 'invent' a fact. We can reduce them using RAG (Retrieval-Augmented Generation)—where the AI has to look at a 'textbook' before answering—but as long as the model is probabilistic, the risk of a 'wrong guess' exists.</span>
+            </li>
+            <li><span class="q">Why is the 'Context Window' limited? Why can't it just remember everything forever?</span>
+                <span class="a">It’s a computation limit. Every token in the window has to 'look' at every other token to calculate its relationship (the Attention mechanism). This math grows exponentially. If you double the context window, the processing power required doesn't just double—it quadruples. It’s like a human trying to keep 100 things in their 'active working memory' at once; eventually, the brain just can't track all the connections.</span>
+            </li>
+            <li><span class="q">You said AI doesn't lie 'on purpose.' But what if I trick it into agreeing with me?</span>
+                <span class="a">That is called <b>Sycophancy</b>. Because the AI is trained to be 'helpful' and provide 'statistically satisfying' answers, if a user strongly suggests a wrong answer is right, the AI's 'probability map' shifts toward the user's bias. It isn't lying to be mean; it's just trying to be the most 'satisfying' autocomplete it can be.</span>
+            </li>
+            <li><span class="q">If I run a model locally on my laptop vs. using Gemini in the cloud, why is the cloud one so much smarter at math?</span>
+                <span class="a">Two reasons: <b>Tools</b> and <b>Precision</b>. Cloud models like Gemini often have a 'hidden' Python interpreter—they recognize a math problem and write a script to solve it perfectly. Local models usually rely on 'raw' prediction. Also, local models are often Quantized (compressed) to fit on a home GPU, which is like a person trying to do math while being very tired—they lose the fine-grained 'precision' needed for complex logic.</span>
+
+            </li>
         </ul>
-
-        <p>
-            🚀 Future = “Your personal AI, always with you”
-        </p>
     </section>
 
     <section>
@@ -376,6 +436,12 @@
             <li>In LMStudio, after installed and running, open the "Model Search" to search and download your selected model.</li>
         </ul>
 
+    </section>
+
+    <section>
+        <h2>Thank you</h2>
+
+        <p style="text-align: center;">What is next?</p>
     </section>
 
     
