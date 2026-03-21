@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="300" viewBox="0 0 500 300">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <line x1="50" y1="50" x2="450" y2="50" stroke="#eff6ff" stroke-width="1" />
+  <line x1="50" y1="100" x2="450" y2="100" stroke="#eff6ff" stroke-width="1" />
+  <line x1="50" y1="150" x2="450" y2="150" stroke="#eff6ff" stroke-width="1" />
+  <line x1="50" y1="200" x2="450" y2="200" stroke="#eff6ff" stroke-width="1" />
+
+  <line x1="50" y1="250" x2="450" y2="250" stroke="currentColor" stroke-width="3" />
+  <line x1="50" y1="250" x2="50" y2="50" stroke="currentColor" stroke-width="3" />
+  <text x="250" y="290" fill="currentColor" font-family="Segoe UI" font-weight="bold" text-anchor="middle">DISTANCE (X)</text>
+  <text x="15" y="150" fill="currentColor" font-family="Segoe UI" font-weight="bold" text-anchor="middle" transform="rotate(-90, 15, 150)">PRICE (Y)</text>
+
+  <!-- proper data -->
+  <circle cx="100" cy="210" r="6" fill="#60a5fa" opacity="0.6" />
+  <circle cx="175" cy="180" r="6" fill="#60a5fa" opacity="0.6" />
+  <circle cx="250" cy="190" r="6" fill="#60a5fa" opacity="0.6" />
+  <circle cx="325" cy="140" r="6" fill="#60a5fa" opacity="0.6" />
+  <circle cx="400" cy="120" r="6" fill="#60a5fa" opacity="0.6" />
+  <circle cx="450" cy="90" r="6" fill="#60a5fa" opacity="0.6" />
+
+  <!-- outliers for illustration -->  
+  <!-- <circle cx="70" cy="240" r="8" fill="#ef4444" stroke="white" stroke-width="2" /> -->
+  <circle cx="380" cy="60" r="8" fill="#ef4444" stroke="white" stroke-width="2" />
+
+  <line x1="50" y1="230" x2="470" y2="80" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" filter="url(#glow)" />
+  
+  <!-- <text x="70" y="260" fill="#ef4444" font-family="Segoe UI" font-size="0.8rem" font-weight="bold" text-anchor="middle">Minimum Fare</text> -->
+  <text x="380" y="45" fill="#ef4444" font-family="Segoe UI" font-size="0.8rem" font-weight="bold" text-anchor="middle">Outlier = data far from the main line</text>
+</svg>
