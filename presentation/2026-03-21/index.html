@@ -40,13 +40,17 @@
         }
 
         blockquote {
+            
+            margin: 0.5rem;
+            padding: 0.5rem;
+
             font-style: italic;
             text-align: right;
-            border-left: 0.4rem solid #0f0;
-            border-radius: 0.5rem 0 0 0.5rem;
 
-            margin: 0.5rem;
-            padding-left: 0.5rem;
+            border-left: 0.4rem solid #0f0;
+            border-right: 0.4rem solid #0f0;
+
+            border-radius: 0.5rem;
         }
 
         .red_text {
@@ -215,27 +219,29 @@
             </li>
 
             <li><b>Converts tokens into vectors (the “embedding”)</b>
-    <ul>
-        <li><b>The ID ("barcode")</b>
-            <br>eg: ["Today", "is", "Sunday", "!"] → [10213, 23421, 5661, 50]</li>
-        <li><b>The Vector ("coordinate" or "location")</b>
-            <br>* Each ID acts as a lookup key to find its specific location (vector) on the map. 
-            <br>eg: ID 10213 points to a list of hundreds of decimal numbers: [0.12, -0.59, 0.88...]</li>
-        <li><b>Build Dictionary</b>
-            <br>* The bridge that maps a <b>Token → ID → Vector</b>. 
-            <br>eg: "Today" : 10213 : [0.12, -0.59, 0.88...]</li>
-    </ul>
+                <ul>
+                    <li><b>The ID ("barcode")</b>
+                        <br>eg: ["Today", "is", "Sunday", "!"] → [10213, 23421, 5661, 50]</li>
+                    <li><b>The Vector ("coordinate" or "location")</b>
+                        <br>* Each ID acts as a lookup key to find its specific location (vector) on the map. 
+                        <br>eg: ID 10213 points to a list of hundreds of decimal numbers: [0.12, -0.59, 0.88...]</li>
+                    <li><b>Build Dictionary</b>
+                        <br>* The bridge that maps a <b>Token → ID → Vector</b>. 
+                        <br>eg: "Today" : 10213 : [0.12, -0.59, 0.88...]</li>
+                </ul>
 
-    <p><b>Common terminology in AI math:</b></p>
-    <ul>
-        <li><b>Vector (1D)</b>: A single line of numbers (represents one word).</li>
-        <li><b>Matrix (2D)</b>: A grid of numbers (represents one sentence/paragraph).</li>
-        <li><b>Tensor (3D+)</b>: A "stack" of grids (represents a whole book or a batch of data).</li>
-        <li><b>GPU Power</b>: GPUs are "Tensor Engines." They don't just count faster; they process entire blocks of data (Tensors) in a single heartbeat.</li>
-    </ul>
-</li>
+                <p><b>Common terminology in AI math:</b></p>
+                <ul>
+                    <li><b>Vector (1D)</b>: A single line of numbers (represents one word).</li>
+                    <li><b>Matrix (2D)</b>: A grid of numbers (represents one sentence/paragraph).</li>
+                    <li><b>Tensor (3D+)</b>: A "stack" of grids (represents a whole book or a batch of data).</li>
+                    <li><b>GPU Power</b>: GPUs are "Tensor Engines." They don't just count faster; they process entire blocks of data (Tensors) in parallel using technique called SIMD (Single Instruction, Multiple Data).</li>
+                </ul>
+            </li>
 
         </ul>
+
+        <blockquote>LLM looks like just a database that stores words, IDs and Vectors. But LLM has "attention engine" that "calculate a word's meaning based on its neighbors", it makes LLM different than traditional static database (eg: MySQL, PostgreSQL, etc.).</blockquote>
 
         <p style="color: red;">* Oversimplified</p>
     </section>
@@ -248,7 +254,7 @@
             <li><b>Understands your input (prompt)</b>
                 <ul>
                     <li>LLM does NOT understand words like humans.</li>
-                    <li>Finding the right Context (Distance).
+                    <li>Finding the right Context (shortest distance).
                         <p>Example the word "Apple", we want to know if the user is talking about "Food" or "Technology", The AI looks at the surrounding words (the context) and calculates the Cosine Similarity (the mathematical distance) between their vectors.</p>
 
                         <p>Sample of a simplified 2D Vectors</p>
@@ -279,10 +285,20 @@
                         <p>AI calculates the distance between every tokens in the sentence.</p>
 
                         <p>Prompt 1: "I ate a crunchy apple"</p>
-                        <p>The tokens "apple" and "crunchy", AI determines the context as the <b>shortest distance</b> is in "Food".</p>
+                        <ul>
+                            <li>The tokens "apple" and "crunchy"</li>
+                            <li>In Food dimension, apple (0.8) and crunchy (0.9) ==> the distance is 0.1</li>
+                            <li>In Technology dimension, apple (0.7) and crunchy (0.1) ==> the distance is 0.6</li>
+                            <li>Therefore LLM will take the shortest/closest distance between "apple" and "crunchy" which is in the context of "Food".</li>
+                        </ul>
 
                         <p>Prompt 2: "I have apple smartphone"</p>
-                        <p>The tokens "apple" and "smartphone", AI determines the context as the <b>shortest distance</b> is in "Technology".</p>
+                        <ul>
+                            <li>The tokens "apple" and "smartphone"</li>
+                            <li>In Food dimension, apple (0.8) and smartphone (0.1) ==> the distance is 0.7</li>
+                            <li>In Technology dimension, apple (0.7) and smartphone (0.9) ==> the distance is 0.2</li>
+                            <li>Therefore LLM will take the shortest/closest distance between "apple" and "smartphone" which is in the context of "Technology".</li>
+                        </ul>
                     </li>
                 </ul>
             </li>
@@ -297,15 +313,14 @@
 
             <li><b>Remembers conversation (Context Window).</b>
                 <ul>
-                    <li>AI application needs to keep the recent conversation.</li>
+                    <li>AI application (eg: LM Studio, Ollama, etc.) needs to keep the recent conversation.</li>
                     <li>On the next prompt, application will need to send the recent conversation + new prompt (e.g. ~128K tokens) to the AI model Helps maintain context and continuity.
                         <br>* Important for better answers and fewer mistakes ("hallucinations")</li>
                 </ul>
             </li>
         </ol>
 
-        <p><b>💡 Simple analogy:</b><br>
-        “LLM is like a super-smart autocomplete trained on the entire internet.”</p>
+        <blockquote>"LLM is a stateless, context-aware prediction engine. It doesn't 'know' facts; it calculates the most statistically probable next token based on the patterns it learned. LLM is like a super-smart text autocomplete engine."</blockquote>
 
         <p style="color: red;">* oversimplified</p>
     </section>
