@@ -1,7 +1,7 @@
 # SeoulShare-Tech-Talk
 Material for SeoulShare Tech Talk 
 
-### 2026-03-21
+### 2026-03-28
 (RAG and AI Agent)[https://hmaxf.github.io/SeoulShare-Tech-Talk/presentation/2026-03-28/]
 
 ### 2026-03-21
