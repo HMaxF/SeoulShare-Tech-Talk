@@ -1,1 +1,319 @@
-sdfsdf
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG & AI Agents - 28 March 2026 | SeoulShare Tech Talk</title>
+
+    <style>
+        
+        body {
+            color: white;
+            background-color: #000;
+
+            font-size: 16px;  
+            line-height: 1.4;
+
+            background-image:
+                url("../../images/corner_tl-gray.png"),
+                url("../../images/corner_tr-gray.png"),
+                url("../../images/corner_bl-gray.png"),
+                url("../../images/corner_br-gray.png");
+
+            background-position:
+                top left,
+                top right,
+                bottom left,
+                bottom right;
+
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100px, 100px, 100px, 100px;
+
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        a {
+            color: yellow;
+            text-decoration: none;
+        }
+
+        blockquote {
+            
+            margin: 0.5rem;
+            padding: 0.5rem;
+
+            font-style: italic;
+            text-align: right;
+
+            border-left: 0.4rem solid #0f0;
+            border-right: 0.4rem solid #0f0;
+
+            border-radius: 0.5rem;
+        }
+
+        .red_text {
+            color: red;
+        }
+
+        .green_text {
+            color: green;
+        }
+
+        table {
+            border-collapse: collapse;
+            max-width: 100vw;
+            margin: 0 auto; /* horizontally center */
+        }
+
+        table th, table td {
+            padding: 0.5rem;
+            border: 1px solid #666;
+        }
+
+        table th {
+            color: black;
+            background-color: brown;
+        }
+
+        table td {
+            color: white;
+            /* background-color: black; */ /* do not set color == transparent */
+
+            /* word-break: break-all;
+            word-wrap: normal; */
+        }
+
+        pre {
+            /* font-size: 1.0rem; */
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            /*word-break: break-all;*/
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        section:not(:last-child) {
+            margin-bottom: 100vh;
+        }
+        section:last-child {
+            margin-bottom: 50vh; /* put content in center vertically */
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        li {
+            margin-top: 0.5rem;
+        }
+        li:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
+
+        ul.faq span, ol.faq span {
+            display: block;
+        }
+        span.q {
+            color: red;            
+        }
+        span.a {
+            color: yellow;
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <section>
+        <h1>SeoulShare Tech Talk</h1>
+        <p style="text-align: center;">28 March 2026</p>
+
+        <h2>RAG &amp; AI Agents: From Chatting to Doing Real Tasks</h2>
+        <p style="text-align: center;">⏱ Duration: 15 minutes</p>
+        <p style="text-align: center;">🎯 Goal: Understand how AI goes from "answering questions" to "solving problems"</p>
+
+        <blockquote>“By the end, you will understand how AI can act as your personal researcher and digital employee.”</blockquote>
+    </section>
+
+    <section>
+        <h2>What is RAG?</h2>
+
+        <p>RAG = <span class="highlight">Retrieval-Augmented Generation</span></p>
+
+        <ul>
+            <li>A technique that gives LLM a "library of facts" from some documents (database, texts, JSON, Internet, etc.) to look at before answering.
+                <br>* To improve accuracy.
+            </li>            
+            <li>It solves the problem of LLM "forgetting" recent facts or making things up.
+                <br>* To reduce hallucination
+            </li>
+        </ul>
+
+        <h2>Why RAG is Important?</h2>
+        <ul>
+            <li>LLM knowledge is limited or maybe outdated and LLM alone can not access external (or private) data.</li>
+        </ul>
+
+        <h2>How RAG Works?</h2>
+        <ol>
+            <li>User asks question</li>
+            <li>Search relevant documents</li>
+            <li>Inject context into prompt</li>
+            <li>Send to LLM to generates answer</li>
+        </ol>
+
+        <blockquote><strong>The Analogy:</strong> The "Open-Book Exam." Instead of guessing from memory, the RAG reads/queries external files/data to find the right answer then use LLM to rephrase the answer.</blockquote>
+    </section>
+
+    <section>
+
+        <h2>What is an AI Agent?</h2>
+
+        <p>AI Agent = AI that can <span class="highlight">take actions</span>, not just answer.</p>
+
+         <ul>
+            <li>Understands a goal</li>
+            <li>Makes decisions</li>
+            <li>Uses tools</li>
+            <li>Executes tasks</li>
+        </ul>
+
+        <h2>How AI Agent Works?</h2>
+        <ol>
+            <li>Receive goal</li>
+            <li>Plan steps</li>
+            <li>Use tools (API, browser, etc)</li>
+            <li>Execute</li>
+            <li>Repeat until done</li>
+        </ol>
+
+        <blockquote><strong>The Analogy:</strong> AI Agent is a "Digital Employee", a "doer" with hands.</blockquote>
+    </section>
+
+    <section>
+
+        <h2>RAG + AI Agent + LLM: working together</h2>
+
+        <ul>
+            <li>🧠 RAG = Brain (knowledge)</li>
+            <li>👐 Agent = Hands (action)</li>
+            <li>🗣 LLM = Voice (communication)</li>
+        </ul>
+
+
+        <p class="highlight">Powerful combination!</p>
+
+
+    </section>
+
+    <section>
+
+        <h2>Real-World Scenarios</h2>
+        <table>
+            <tr>
+                <th>Scenario</th>
+                <th>How RAG helps</th>
+                <th>How an Agent helps</th>
+            </tr>
+            <tr>
+                <td><strong>Chatbot</strong></td>
+                <td>Finds company customer service Q&A info, example:
+                    <ul>
+                        <li>Without RAG: AI may give wrong or outdated answer</li>
+                        <li>With RAG: AI reads company document → gives exact answer</li>
+                    </ul>
+                </td>
+                <td>Uses tools like browser/API to fetch latest info.
+                    <br>* eg: find current shipping fee from A to B.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Planning a Trip</strong></td>
+                <td>Finds hotels from your saved preferences (budget, location, past trips).</td>
+                <td>Checks your calendar and actually books the best room.</td>
+            </tr>
+            <tr>
+                <td><strong>Work Email</strong></td>
+                <td>Finds project details from past emails or documents.</td>
+                <td>Drafts the reply and schedules it to send at 9 AM.</td>
+            </tr>
+            <tr>
+                <td><strong>Coding</strong></td>
+                <td>Finds examples or documentation from the internet.</td>
+                <td>Writes code, tests it, and fixes errors automatically (update files).</td>
+            </tr>
+        </table>
+
+        <blockquote>"RAG provides the Brain (Knowledge). Agents provide the Hands (Action)."</blockquote>
+    </section>
+
+    <section>
+
+        <h2>What are the Challenges?</h2>
+        <ul>
+            <li><strong>Data Privacy:</strong> You must be careful about which documents you give the "library."</li>
+            <li><strong>Agent "Loops":</strong> Sometimes an agent can get stuck trying to solve the same problem repeatedly.</li>
+            <li><strong>Cost:</strong> Running many searches and actions can use more "AI fuel" than a simple chat.</li>
+            <li><strong>Wrong Actions:</strong> If not controlled, an AI agent could send wrong emails or make wrong bookings.</li>
+        </ul>
+    </section>
+
+    <section>
+
+        <h2>F.A.Q</h2>
+        <ul class="faq">
+            <li><span class="q">Is RAG better than training a new AI?</span>
+                <span class="a">Yes! RAG is much cheaper and faster. You can update your "library" in seconds, whereas training an AI takes weeks.</span>
+            </li>
+
+            <li><span class="q">Can an AI agent accidentally delete my files?</span>
+                 <span class="a">Yes, it's a risk! AI agent can autonomously take actions and it may do something wrong, that is why we use "Human-in-the-loop"—the Agent asks for your permission before taking a final action.</span>
+            </li>
+            <li><span class="q">Do I need to be a coder to use these?</span>
+                <span class="a">No. Tools like "Custom GPTs" or "Agentic Workflows" now allow you to build these using just plain English.</span>
+            </li>
+            <li><span class="q">Can OpenClaw be considered as a type of AI agent?</span>
+                <span class="a">Yes, OpenClaw is designed to interact with tools (like browser, apps, files) to finish it given tasks. It is like we give OpenClaw a mouse and keyboard to simulate human to work.</span>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>The Big Idea</h2>
+
+        <p class="highlight" style="text-align:center;">
+            Your future coworker might be AI.
+        </p>
+
+        <blockquote>
+            "AI is no longer just something you talk to.<br><br>
+            It is becoming something that works for you."
+        </blockquote>
+        
+    </section>
+    
+    <section>
+        <h2>Questions?</h2>
+
+        <p style="text-align: center;">🙋 Ask anything!</p>
+
+    </section>
+
+
+    <section>
+        <h2>Thank you</h2>
+
+        <p style="text-align: center;">What is next?</p>
+        <p style="text-align: center;">I want to learn too 😀</p>
+    </section>
+
+    
+</body>
+</html>
