@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAG & AI Agents - 28 March 2026 | SeoulShare Tech Talk</title>
 
     <style>
-        
         body {
             color: white;
             background-color: #000;
 
-            font-size: 16px;  
+            font-size: 16px;
             line-height: 1.4;
 
             background-image:
@@ -40,7 +40,7 @@
         }
 
         blockquote {
-            
+
             margin: 0.5rem;
             padding: 0.5rem;
 
@@ -64,10 +64,12 @@
         table {
             border-collapse: collapse;
             max-width: 100vw;
-            margin: 0 auto; /* horizontally center */
+            margin: 0 auto;
+            /* horizontally center */
         }
 
-        table th, table td {
+        table th,
+        table td {
             padding: 0.5rem;
             border: 1px solid #666;
         }
@@ -79,7 +81,8 @@
 
         table td {
             color: white;
-            /* background-color: black; */ /* do not set color == transparent */
+            /* background-color: black; */
+            /* do not set color == transparent */
 
             /* word-break: break-all;
             word-wrap: normal; */
@@ -101,33 +104,45 @@
         section:not(:last-child) {
             margin-bottom: 100vh;
         }
+
         section:last-child {
-            margin-bottom: 50vh; /* put content in center vertically */
+            margin-bottom: 50vh;
+            /* put content in center vertically */
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             text-align: center;
         }
 
         li {
             margin-top: 0.5rem;
         }
+
         li:not(:last-child) {
             margin-bottom: 0.5rem;
         }
 
-        ul.faq span, ol.faq span {
+        ul.faq span,
+        ol.faq span {
             display: block;
         }
+
         span.q {
-            color: red;            
+            color: red;
         }
+
         span.a {
             color: yellow;
         }
 
+        pre {
+            padding: 0.5rem;
+            border: 1px solid #666;
+        }
     </style>
 </head>
+
 <body>
 
 
@@ -137,9 +152,11 @@
 
         <h2>RAG &amp; AI Agents: From Chatting to Doing Real Tasks</h2>
         <p style="text-align: center;">⏱ Duration: 15 minutes</p>
-        <p style="text-align: center;">🎯 Goal: Understand how AI goes from "answering questions" to "solving problems"</p>
+        <p style="text-align: center;">🎯 Goal: Understand how AI goes from "answering questions" to "solving problems"
+        </p>
 
-        <blockquote>“By the end, you will understand how AI can act as your personal researcher and digital employee.”</blockquote>
+        <blockquote>“By the end, you will understand how AI can act as your personal researcher and digital employee.”
+        </blockquote>
     </section>
 
     <section>
@@ -148,9 +165,10 @@
         <p>RAG = <span class="highlight">Retrieval-Augmented Generation</span></p>
 
         <ul>
-            <li>A technique that gives LLM a "library of facts" from some documents (database, texts, JSON, Internet, etc.) to look at before answering.
+            <li>A technique that gives LLM a "library of facts" from some documents (database, texts, JSON, Internet,
+                etc.) to look at before answering.
                 <br>* To improve accuracy.
-            </li>            
+            </li>
             <li>It solves the problem of LLM "forgetting" recent facts or making things up.
                 <br>* To reduce hallucination
             </li>
@@ -169,7 +187,8 @@
             <li>Send to LLM to generates answer</li>
         </ol>
 
-        <blockquote><strong>The Analogy:</strong> The "Open-Book Exam." Instead of guessing from memory, the RAG reads/queries external files/data to find the right answer then use LLM to rephrase the answer.</blockquote>
+        <blockquote><strong>The Analogy:</strong> The "Open-Book Exam." Instead of guessing from memory, the RAG
+            reads/queries external files/data to find the right answer then use LLM to rephrase the answer.</blockquote>
     </section>
 
     <section>
@@ -178,7 +197,7 @@
 
         <p>AI Agent = AI that can <span class="highlight">take actions</span>, not just answer.</p>
 
-         <ul>
+        <ul>
             <li>Understands a goal</li>
             <li>Makes decisions</li>
             <li>Uses tools</li>
@@ -270,9 +289,11 @@
         <h2>What are the Challenges?</h2>
         <ul>
             <li><strong>Data Privacy:</strong> You must be careful about which documents you give the "library."</li>
-            <li><strong>Agent "Loops":</strong> Sometimes an agent can get stuck trying to solve the same problem repeatedly.</li>
+            <li><strong>Agent "Loops":</strong> Sometimes an agent can get stuck trying to solve the same problem
+                repeatedly.</li>
             <li><strong>Cost:</strong> Running many searches and actions can use more "AI fuel" than a simple chat.</li>
-            <li><strong>Wrong Actions:</strong> If not controlled, an AI agent could send wrong emails or make wrong bookings.</li>
+            <li><strong>Wrong Actions:</strong> If not controlled, an AI agent could send wrong emails or make wrong
+                bookings.</li>
         </ul>
     </section>
 
@@ -281,17 +302,22 @@
         <h2>F.A.Q</h2>
         <ul class="faq">
             <li><span class="q">Is RAG better than training a new AI?</span>
-                <span class="a">Yes! RAG is much cheaper and faster. You can update your "library" in seconds, whereas training an AI takes weeks.</span>
+                <span class="a">Yes! RAG is much cheaper and faster. You can update your "library" in seconds, whereas
+                    training an AI takes weeks.</span>
             </li>
 
             <li><span class="q">Can an AI agent accidentally delete my files?</span>
-                 <span class="a">Yes, it's a risk! AI agent can autonomously take actions and it may do something wrong, that is why we use "Human-in-the-loop"—the Agent asks for your permission before taking a final action.</span>
+                <span class="a">Yes, it's a risk! AI agent can autonomously take actions and it may do something wrong,
+                    that is why we use "Human-in-the-loop"—the Agent asks for your permission before taking a final
+                    action.</span>
             </li>
             <li><span class="q">Do I need to be a coder to use these?</span>
-                <span class="a">No. Tools like "Custom GPTs" or "Agentic Workflows" now allow you to build these using just plain English.</span>
+                <span class="a">No. Tools like "Custom GPTs" or "Agentic Workflows" now allow you to build these using
+                    just plain English.</span>
             </li>
             <li><span class="q">Can OpenClaw be considered as a type of AI agent?</span>
-                <span class="a">Yes, OpenClaw is designed to interact with tools (like browser, apps, files) to finish it given tasks. It is like we give OpenClaw a mouse and keyboard to simulate human to work.</span>
+                <span class="a">Yes, OpenClaw is designed to interact with tools (like browser, apps, files) to finish
+                    it given tasks. It is like we give OpenClaw a mouse and keyboard to simulate human to work.</span>
             </li>
         </ul>
     </section>
@@ -307,14 +333,74 @@
             "AI is no longer just something you talk to.<br><br>
             It is becoming something that works for you."
         </blockquote>
-        
+
     </section>
-    
+
     <section>
         <h2>Questions?</h2>
 
         <p style="text-align: center;">🙋 Ask anything!</p>
 
+    </section>
+
+    <section>
+
+        <h2>Sample RAG (with Python) to search Internet and get brief content</h2>
+        <pre>
+from ddgs import DDGS
+import sys
+
+def reliable_ddgs_search(query, num_results=3):
+    links = []
+    try:
+        # Perform search using DuckDuckGo
+        with DDGS() as ddgs:
+            results = ddgs.text(query, max_results=num_results)
+            if results:
+                for r in results:
+                    # Depending on DDGS version, the URL key is 'href' or 'link'
+                    links.append(r.get('href', r.get('link', '')))
+    except Exception as e:
+        print(f"Error during search: {e}")
+        
+    return links
+
+def get_top_3_content(query):
+    print(f"🔎 Searching for: {query}\n")
+    
+    # 1. Search using DDGS and get top URLs
+    links = reliable_ddgs_search(query, num_results=3)
+    
+    if not links:
+        print("❌ Oops! Search returned 0 results. It is likely the request was blocked or DDGS encountered an error.")
+        return
+        
+    for i, url in enumerate(links, 1):
+        print(f"🌐 Result #{i}: {url}")
+        
+        try:
+            text = DDGS().extract(url, fmt="text_plain")
+                  
+            # Show just the first 300 characters as a preview
+            print(f"📄 Content Preview: {text['content'][:300]}...")
+            print("-" * 30)
+            
+        except Exception as e:
+            print(f"❌ Could not read this page: {e}")
+
+def main():
+    # Receive query from command line
+    # $ python3 rag-search-google.py nomor cantik
+    if len(sys.argv) > 1:
+        query = " ".join(sys.argv[1:])
+    else:
+        query = "Latest AI news March 2026"  # default fallback
+        
+    get_top_3_content(query)
+
+if __name__ == "__main__":
+    main()
+        </pre>
     </section>
 
 
@@ -325,6 +411,7 @@
         <p style="text-align: center;">I want to learn too 😀</p>
     </section>
 
-    
+
 </body>
+
 </html>
