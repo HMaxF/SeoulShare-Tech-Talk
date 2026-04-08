@@ -3,7 +3,7 @@ Material for SeoulShare Tech Talk
 
 ### 2026-04-04
 (How to survive as Digital Nomad)[https://hmaxf.github.io/SeoulShare-Tech-Talk/presentation/2026-04-11/]  
-Event: https://www.meetup.com/seoulshare/events/314053617/
+Event: https://www.meetup.com/seoulshare/events/314181223/
 
 ### 2026-04-04
 (Impact of Social Media and AI)[https://hmaxf.github.io/SeoulShare-Tech-Talk/presentation/2026-04-04/]  
