@@ -20,22 +20,6 @@
             font-size: 16px;
             line-height: 1.4;
 
-            background-image:
-                url("../../images/corner_tl-gray.png"),
-                url("../../images/corner_tr-gray.png"),
-                url("../../images/corner_bl-gray.png"),
-                url("../../images/corner_br-gray.png");
-
-            background-position:
-                top left,
-                top right,
-                bottom left,
-                bottom right;
-
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: 100px, 100px, 100px, 100px;
-
             overflow-wrap: anywhere;
             word-break: break-word;
         }
@@ -169,18 +153,193 @@
             padding: 0.5rem;
             border: 1px solid #666;
         }
+
+
+        /* animation */
+        .flow {
+            display:flex;
+            justify-content:space-around;
+            gap:50px;
+        }
+
+        .column{
+            flex:1;
+        }
+
+        .step,
+        .arrow{
+            opacity:0;
+            transform:translateY(-25px);
+
+            transition:
+                opacity .45s ease,
+                transform .45s ease;
+        }
+
+        .step{
+            background:#2d3748;
+            padding:10px 16px;
+            margin:8px 0;
+            border-radius:8px;
+            text-align:center;
+        }
+
+        .arrow{
+            text-align:center;
+            font-size:1rem;
+            color:#7dd3fc;
+            margin:4px 0;
+        }
+
+        .show{
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        .arrow.show span{
+            display:inline-block;
+            animation:pulse 1.3s infinite;
+        }
+
+        @keyframes pulse{
+            /* move up and down for 10pixel */
+            0%,100%{transform:translateY(-3px);}
+            50%{transform:translateY(7px);} 
+        }
+    </style>
+    <script>
+        window.addEventListener('load', () => {
+            checkToStartAnimation();
+        })
+
+        function checkToStartAnimation() {
+            const observer = new IntersectionObserver(entries => {
+
+                entries.forEach(entry => {
+
+                    // animate 1 item at a time.
+                    // const items = entry.target.querySelectorAll(".step, .arrow");
+                    // if (entry.isIntersecting) {
+                    //     items.forEach(el => el.classList.remove("show"));
+                    //     items.forEach((el, index) => {
+                    //         setTimeout(() => {
+                    //             el.classList.add("show");
+                    //         }, index * 180);
+                    //     });
+                    // } else {
+                    //     items.forEach(el => el.classList.remove("show"));
+                    // }
+
+                    // animate 2 cols
+                    const columns = entry.target.querySelectorAll(".column");
+
+                    const left = [...columns[0].querySelectorAll(".step, .arrow")];
+                    const right = [...columns[1].querySelectorAll(".step, .arrow")];
+
+                    if (entry.isIntersecting) {
+                        // reset (remove 'show')
+                        [...left, ...right].forEach(el => el.classList.remove("show"));
+
+                        const max = Math.max(left.length, right.length);
+
+                        for (let i = 0; i < max; i++) {
+                            setTimeout(() => {
+                                // add "show" to make them visible
+                                if (left[i]) left[i].classList.add("show");
+                                if (right[i]) right[i].classList.add("show");
+                            }, i * 150);
+                        }
+                    } else {
+                        [...left, ...right].forEach(el => el.classList.remove("show"));
+                    }
+
+                });
+
+            }, {
+                threshold: 0.5
+            });
+
+            document.querySelectorAll('.flow').forEach(flow => observer.observe(flow));
+        }
+    </script>
+
+    <style>
+        .corner{
+            position:fixed;
+            width:50px;
+            height:50px;
+            pointer-events:none;
+            z-index:9999;
+        }
+
+        /* TOP LEFT */
+        .corner.tl{
+            top:10px;
+            left:10px;
+            border-top:3px solid #6cf;
+            border-left:3px solid #6cf;
+        }
+
+        /* TOP RIGHT */
+        .corner.tr{
+            top:10px;
+            right:10px;
+            border-top:3px solid #6cf;
+            border-right:3px solid #6cf;
+        }
+
+        /* BOTTOM LEFT */
+        .corner.bl{
+            bottom:10px;
+            left:10px;
+            border-bottom:3px solid #6cf;
+            border-left:3px solid #6cf;
+        }
+
+        /* BOTTOM RIGHT */
+        .corner.br{
+            bottom:10px;
+            right:10px;
+            border-bottom:3px solid #6cf;
+            border-right:3px solid #6cf;
+        }
+
+        .corner{
+            animation:glow 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow{
+
+            from{
+                opacity:.5;
+                filter:drop-shadow(0 0 2px #66d9ff);
+            }
+
+            to{
+                opacity:1;
+                filter:drop-shadow(0 0 10px #66d9ff);
+            }
+
+        }
     </style>
 </head>
 
 <body>
+
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
 
 
     <section style="padding-top: 3.0rem;">
         <h1>SeoulShare Tech Talk</h1>
         <span style="display: block; text-align: center;">4th July 2026</span>
 
+        <div style="height: 3.0rem;"></div>
+
         <h2>Vibe Coding Tutorial</h2>
-        <span style="display: block; text-align: center;">⏱ Duration: 15 minutes</span>
+        <span style="display: block; text-align: center;">⏱ Duration: 2 hours</span>
         
     </section>
 
@@ -192,8 +351,8 @@
             <li>💬 Prompting vs Instructing</li>
             <li>📝 Traditional Programming VS Vibe Coding</li>
             <li>🎮 What is the best tool for Vibe Coding?</li>
-            <li>🔄 My sample of Vibe Coding</li>
-            <li>⚖️ Create live demo</li>
+            <li>🔄 How to give instruction to AI Agent?</li>
+            <li>⚖️ Create simple live demo</li>
             <li>❓Q&A</li>
         </ul>
     </section>
@@ -210,7 +369,7 @@
         </ul>
 
         <blockquote>
-            Vibe Coding is not only become more easy but it is unavoidable not to use it.
+            Today, vibe coding is not only become more easy but it is unavoidable not to use it.
         </blockquote>
     </section>
 
@@ -241,37 +400,56 @@
                 </ul>
             </div>
         </div>
+
+        <blockquote>
+            Prompting is to ask simple question, instructing is to tell AI to work to complete a task.
+        </blockquote>
     </section>
 
     <section>
         <h2>Traditional Programming VS Vibe Coding</h2>
+        <div class="flow" id="flow1">
 
-        <div style="display: flex; flex-direction: row; justify-content: space-between;">
-            <div style="flex: 1;">
-                <p><strong>Traditional Programming</strong></p>
-                <ul>
-                    <li>Idea</li>
-                    <li>Design (draw with pen or FigJam by Figma)</li>
-                    <li>Write Code</li>
-                    <li>Debug</li>
-                    <li>Repeat</li>
-                </ul>
+            <div class="column">
+                <h3 style="text-align:center">Traditional Programming</h3>
+                <div class="step">💡 Idea</div>
+                <div class="arrow"><span>⬇</span></div>
+                <div class="step">🎨 Design (Pen / Figma)</div>
+                <div class="arrow"><span>⬇</span></div>
+                <div class="step">💻 Write Code</div>
+                <div class="arrow"><span>⬇</span></div>
+                <div class="step">👀 Test & Review</div>
+                <div class="arrow"><span>⬇</span></div>
+                <div class="step">🐞 Debug</div>
+                <div class="arrow"><span>⬇</span></div>
+                <div class="step">🔁 Repeat</div>
             </div>
-            <div style="flex: 1;">
-                <p><strong>Vibe Coding</strong></p>
-                <ul>
-                    <li>Idea</li>
-                    <li>Write specification as <strong>instruction</strong></li>
-                    <li>Let AI builds</li>
-                    <li>Review (test or run app)</li>
-                    <li>Debug (or improve <strong>instruction</strong>)</li>
-                    <li>Repeat</li>
-                </ul>
+
+            <div class="column">
+                <h3 style="text-align:center">Vibe Coding</h3>
+                <div class="step">💡 Idea</div>
+                <div class="arrow"><span>⬇</span></div>
+                <div class="step">📝 Write Specification (Instruction)</div>
+                <div class="arrow"><span>⬇</span></div>
+                <div class="step">🤖 AI Builds</div>
+                <div class="arrow"><span>⬇</span></div>
+                <div class="step">👀 Test & Review</div>
+                <div class="arrow"><span>⬇</span></div>
+                <div class="step">🐞 Debug (Improve Instruction)</div>
+                <div class="arrow"><span>⬇</span></div>
+                <div class="step">🔁 Repeat</div>
+
             </div>
+
         </div>
 
         <blockquote>
-            AI can not read our mind, and our mind always changes, updating <strong>instruction</strong> becoming a regular task.
+            Writing and update <strong>instruction</strong> becoming a regular task.
+            <br>
+            AI isn't bad at coding, often problem because incomplete or conflicting specification.
+            <br>
+            We often changed our mind, unfortunately AI can not read our mind.
+            
         </blockquote>
     </section>
 
@@ -283,7 +461,7 @@
         <p>AI Models: GPT-5, Cloude Sonnet, Gemini, DeepSeek, Qwen, etc.</p>
 
 
-        <p>Choosing the right combination is challenging, and most of them have cost and can get quite expensive, personally I use what I can afford ... and it is free 😄</p>
+        <p>Choosing the right combination is challenging, and some of them have cost and can get quite expensive, personally I use what I can afford ... and it is free 😄</p>
         
         <blockquote>
             The best tool is useless if it can not read our mind, how to create better instruction is more important than the tool.
@@ -292,18 +470,36 @@
     </section>
 
     <section>
-        <h2>My sample of Vibe Coding</h2>
+        <h2>How to give instruction to AI Agent?</h2>
 
-        <p>... show created web & game</p>
+        <p>No strict guideline, my personal habit is to write in markdown and split the content like:</p>
+        <ol>
+            <li><strong>agent.md</strong>: Main description of the project 
+                <br>* Mention all other required instruction *.md files for AI Agent to know.</li>
+            <li><strong>backend.md</strong>: Requirement for admininistrator and content manager.</li>
+            <li><strong>frontend.md</strong>: Feature and design for public visitor page.</li>
+            <li><strong>database.md</strong>: Tables' schemas.</li>
+            <li>etc.</li>
+            </li>
+
+        </ol>
 
     </section>
 
     <section>
-        <h2>Create live demo</h2>
+        <h2>Create simple live demo</h2>
 
-        <p>Write specification together</p>
+        <ol>
+            <li>Quick decision, what we should make?
+                <br>* Avoid build something that need server, so build simple web page or game.</li>
+            <li>... BREAK TIME 10 minutes for everyone to bring idea ...</li>
+            <li>Write the instruction</li>
+            <li>Ask AI to build it</li>
+        </ol>
 
-
+        <blockquote>
+            My personal favorite free AI Agent is Opencode + Big Pickle (model) to build website or static page.
+        </blockquote>
 
     </section>
 
@@ -318,8 +514,7 @@
     <section>
         <h2>Thank you</h2>
 
-        <p style="text-align: center;">What is next?</p>
-        <p style="text-align: center;">I want to learn too 😀</p>
+        <p style="text-align: center;">What is our next big idea?</p>
     </section>
 
 
