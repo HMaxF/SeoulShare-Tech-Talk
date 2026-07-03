@@ -1,6 +1,10 @@
 # SeoulShare-Tech-Talk
 Material for SeoulShare Tech Talk 
 
+### 2026-07-04
+(Vibe Coding tutorial)[https://hmaxf.github.io/SeoulShare-Tech-Talk/presentation/2026-07-04/]  
+Event: https://www.meetup.com/seoulshare/events/315487582/
+
 ### 2026-04-11
 (How to survive as Digital Nomad)[https://hmaxf.github.io/SeoulShare-Tech-Talk/presentation/2026-04-11/]  
 Event: https://www.meetup.com/seoulshare/events/314181223/
